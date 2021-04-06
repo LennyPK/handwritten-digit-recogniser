@@ -1,8 +1,8 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, qApp
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, qApp, QGridLayout, QWidget
 
 
-class MyApp(QMainWindow):
+class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -10,8 +10,14 @@ class MyApp(QMainWindow):
 
     def initUI(self):
         self.setWindowTitle('Handwriting Analysis')
-        self.move(300, 300)
-        self.resize(600, 400)        
+
+        #grid
+        grid = QGridLayout()
+
+        #self.move(300, 300)
+        #self.resize(600, 400) 
+        self.setLayout(grid)       
+        self.setGeometry(300, 300, 480, 320)
         self.show()
 
         #Actions
@@ -23,7 +29,7 @@ class MyApp(QMainWindow):
         trainAction = QAction('Train Model', self)
         #trainAction.setShortcut()
         trainAction.setStatusTip('Train Model')
-        #trainAction.triggered.connect()
+        trainAction.triggered.connect(self.trainWindow)
 
         viewTrainAction = QAction('View Training Images', self)
         #viewTrainAction.setShortcut()
@@ -47,7 +53,30 @@ class MyApp(QMainWindow):
         viewmenu.addAction(viewTrainAction)        
         viewmenu.addAction(viewTestAction)
 
+
+    #When 'Train Model' is clicked
+    def trainWindow(self, checked):
+        trainW = trainModelWindow()
+        trainW.show()
+
+class trainModelWindow(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setWindowTitle('Handwriting Training')
+        #self.move(300, 300)
+        #self.resize(600, 400) 
+        self.setLayout(grid)       
+        self.setGeometry(200, 200, 240, 160)
+        self.show()
+
+
 if __name__ == '__main__':
    app = QApplication(sys.argv)
-   ex = MyApp()
+   ex = MainWindow()
    sys.exit(app.exec_())
+   #trainWindow = MainWindow()
+   #trainWindow.show()
