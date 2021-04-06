@@ -6,6 +6,7 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+        self.w = None
         self.initUI()
 
     def initUI(self):
@@ -21,15 +22,17 @@ class MainWindow(QMainWindow):
         self.show()
 
         #Actions
+        trainAction = QAction('Train Model', self)
+        #trainAction.setShortcut()
+        trainAction.setStatusTip('Train Model')
+        trainAction.triggered.connect(self.showTrainWindow)
+
         quitAction = QAction('Exit', self)
         quitAction.setShortcut('Ctrl+Q')
         quitAction.setStatusTip('Quit application')
         quitAction.triggered.connect(qApp.quit)
 
-        trainAction = QAction('Train Model', self)
-        #trainAction.setShortcut()
-        trainAction.setStatusTip('Train Model')
-        trainAction.triggered.connect(self.trainWindow)
+
 
         viewTrainAction = QAction('View Training Images', self)
         #viewTrainAction.setShortcut()
@@ -46,8 +49,9 @@ class MainWindow(QMainWindow):
         menubar = self.menuBar()
         #File menubar (train model, quit)
         filemenu = menubar.addMenu('&File')
-        filemenu.addAction(quitAction)
         filemenu.addAction(trainAction)
+        filemenu.addAction(quitAction)
+
 
         viewmenu = menubar.addMenu('&View')
         viewmenu.addAction(viewTrainAction)        
@@ -55,11 +59,15 @@ class MainWindow(QMainWindow):
 
 
     #When 'Train Model' is clicked
-    def trainWindow(self, checked):
-        trainW = trainModelWindow()
-        trainW.show()
+    def showTrainWindow(self, checked):
+        if self.w is None:
+            self.w = trainModelWindow()
+            self.w.show()
+        else:
+            self.w.close()
+            self.w = None
 
-class trainModelWindow(QWidget):
+class trainModelWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -67,10 +75,6 @@ class trainModelWindow(QWidget):
 
     def initUI(self):
         self.setWindowTitle('Handwriting Training')
-        #self.move(300, 300)
-        #self.resize(600, 400) 
-        self.setLayout(grid)       
-        self.setGeometry(200, 200, 240, 160)
         self.show()
 
 
@@ -78,5 +82,3 @@ if __name__ == '__main__':
    app = QApplication(sys.argv)
    ex = MainWindow()
    sys.exit(app.exec_())
-   #trainWindow = MainWindow()
-   #trainWindow.show()
