@@ -14,11 +14,21 @@ class MyApp(QMainWindow):
         self.resize(600, 400)        
         self.show()
 
-
-        #exitAction = QAction(QIcon('D:\workspace\COMPSYS302_PyQt5\exit.png'), 'Exit', self)
+        #Actions
+        quitAction = QAction('Exit', self)
         quitAction.setShortcut('Ctrl+Q')
         quitAction.setStatusTip('Quit application')
         quitAction.triggered.connect(qApp.quit)
+
+        trainModel = QAction('Train Model', self)
+        #trainModel.setShortcut()
+        trainModel.setStatusTip('Train Model')
+
+        menubar = self.menuBar()
+        #File menubar (train model, quit)
+        filemenu = menubar.addMenu('&File')
+        filemenu.addAction(quitAction)
+        filemenu.addAction(trainModel)
         
 
 if __name__ == '__main__':
