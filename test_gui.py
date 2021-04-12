@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, qApp, QGridLayout, QWidget
+from PyQt5.QtWidgets import *
 
 
 class MainWindow(QMainWindow):
@@ -18,8 +18,14 @@ class MainWindow(QMainWindow):
         #self.move(300, 300)
         #self.resize(600, 400) 
         self.setLayout(grid)       
-        self.setGeometry(300, 300, 480, 320)
+        self.setGeometry(300, 300, 1000, 800)
         self.show()
+
+        # centering the window
+        WinInfo = self.frameGeometry()
+        MonitorInfo = QDesktopWidget().availableGeometry().center()
+        WinInfo.moveCenter(MonitorInfo)
+        self.move(WinInfo.topLeft())
 
         #Actions
         trainAction = QAction('Train Model', self)
