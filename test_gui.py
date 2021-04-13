@@ -1,5 +1,6 @@
 import sys
 from train_gui import*
+from model_window import*
 from PyQt5.QtWidgets import *
 
 
@@ -72,18 +73,7 @@ class MainWindow(QMainWindow):
             self.w.show()
         else:
             self.w.close()
-            self.w = None
-
-'''class trainModelWindow(QMainWindow):
-
-    def __init__(self):
-        super().__init__()
-        self.initUI()
-
-    def initUI(self):
-        self.setWindowTitle('Handwriting Training')
-        self.show()'''
-    
+            self.w = None    
 
 
 if __name__ == '__main__':
