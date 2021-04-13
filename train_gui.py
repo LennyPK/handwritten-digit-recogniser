@@ -19,6 +19,13 @@ class trainModelWindow(QWidget):
 
         self.pbar.show() 
 
+        self.trainBtn = QPushButton('&Train',self)
+        self.trainBtn.show()
+        #self.trainBtn.checked.connect()
+
+
+
+
 
 
 
