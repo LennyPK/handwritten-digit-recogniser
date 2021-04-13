@@ -57,6 +57,11 @@ class HomeUI(QMainWindow):
             self.w = None    
 
 class ModelUI(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.w = None
+        self.setupUI()
+
     def setupUI(self, parent=None):
 
         #grid
@@ -106,6 +111,18 @@ class ModelUI(QMainWindow):
         viewmenu.addAction(viewTrainAction)        
         viewmenu.addAction(viewTestAction)
 
+        #Make buttons
+        modelBtns = QVBoxLayout()
+        clearBtn = QPushButton(" &Clear")
+        ranBtn = QPushButton(" &Random")
+        modBtn = QPushButton(" &Model", self)
+        recBtn = QPushButton(" &Recognise", self)
+        modelBtns.addWidget(clearBtn)
+        modelBtns.addWidget(ranBtn)
+        modelBtns.addWidget(modBtn)
+        modelBtns.addWidget(recBtn)
+        self.setLayout(modelBtns)
+
     #When 'Train Model' is clicked
     def showTrainWindow(self, checked):
         if self.w is None:
@@ -114,17 +131,8 @@ class ModelUI(QMainWindow):
         else:
             self.w.close()
             self.w = None
-        #Make buttons
-        modelBtns = QVBoxLayout()
-        clearBtn = QPushButton("&Clear", self)
-        ranBtn = QPushButton("&Random", self)
-        modBtn = QPushButton("&Model", self)
-        recBtn = QPushButton("&Recognise", self)
-        modelBtns.addWidget(clearBtn)
-        modelBtns.addWidget(ranBtn)
-        modelBtns.addWidget(modBtn)
-        modelBtns.addWidget(recBtn)
-        self.setLayout(modelBtns)
+
+
 
     #When 'Train Model' is clicked
     def showTrainWindow(self, checked):
@@ -151,7 +159,6 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Modelling Handwriting Analysis")
         self.setCentralWidget(self.Model)
         self.show()
-
 
 if __name__ == '__main__':
    app = QApplication(sys.argv)
