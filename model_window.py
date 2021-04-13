@@ -51,7 +51,6 @@ class ModelMainWindow(QMainWindow):
         #viewTestAction.setStatusTip()
         #viewTestAction.triggered.connect()
 
-
         menubar = self.menuBar()
         #File menubar (train model, quit)
         filemenu = menubar.addMenu('&File')
