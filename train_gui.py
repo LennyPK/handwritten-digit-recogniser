@@ -23,7 +23,7 @@ class trainModelWindow(QWidget):
 
         self.trainBtn = QPushButton('&Train',self)
         self.trainBtn.show()
-        self.trainBtn.clicked.connect(MainWindow.startModelUI)
+        #self.trainBtn.clicked.connect()
 
 
 

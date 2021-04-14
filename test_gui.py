@@ -1,5 +1,6 @@
 import sys
 from train_gui import*
+from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import *
 
 class HomeUI(QWidget):
@@ -8,12 +9,12 @@ class HomeUI(QWidget):
         self.setupUI()
 
     def setupUI(self, parent=None):
-        #grid
+        '''#grid
         grid = QGridLayout()
 
         self.setLayout(grid)       
         self.setGeometry(300, 300, 1000, 800)
-        self.show()
+        self.show()'''
 
         # centering the window
         WinInfo = self.frameGeometry()
@@ -39,10 +40,8 @@ class ModelUI(QWidget):
 
         #grid
         grid = QGridLayout()
-
         self.setLayout(grid)       
         self.setGeometry(300, 300, 1000, 800)
-        self.show()
 
         # centering the window
         WinInfo = self.frameGeometry()
@@ -51,16 +50,20 @@ class ModelUI(QWidget):
         self.move(WinInfo.topLeft())
 
         #Make buttons
-        modelBtns = QVBoxLayout()
+        #modelBtns = QVBoxLayout()
         clearBtn = QPushButton(" &Clear")
         ranBtn = QPushButton(" &Random")
-        modBtn = QPushButton(" &Model", self)
-        recBtn = QPushButton(" &Recognise", self)
-        modelBtns.addWidget(clearBtn)
-        modelBtns.addWidget(ranBtn)
-        modelBtns.addWidget(modBtn)
-        modelBtns.addWidget(recBtn)
-        self.setLayout(modelBtns)
+        modBtn = QPushButton(" &Model")
+        recBtn = QPushButton(" &Recognise")
+        grid.addWidget(clearBtn,0,0,1,1)
+        grid.addWidget(ranBtn,1,0,1,1)
+        grid.addWidget(modBtn,2,0,1,1)
+        grid.addWidget(recBtn,3,0,1,1)
+
+        test_img = QLabel('hi')
+
+        test_img.setPixmap(QPixmap('img_9.png'))
+        grid.addWidget(test_img,0,0,0,0)
 
 
 class MainWindow(QMainWindow):
@@ -82,7 +85,7 @@ class MainWindow(QMainWindow):
         viewTrainAction = QAction('View Training Images', self)
         #viewTrainAction.setShortcut()
         #viewTrainAction.setStatusTip()
-        #viewTrainAction.triggered.connect()
+        viewTrainAction.triggered.connect(self.startModelUI)
 
 
         viewTestAction = QAction('View Testing Images', self)
@@ -95,7 +98,6 @@ class MainWindow(QMainWindow):
         filemenu = menubar.addMenu('&File')
         filemenu.addAction(trainAction)
         filemenu.addAction(quitAction)
-
         viewmenu = menubar.addMenu('&View')
         viewmenu.addAction(viewTrainAction)        
         viewmenu.addAction(viewTestAction)
