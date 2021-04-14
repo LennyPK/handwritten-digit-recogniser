@@ -109,7 +109,7 @@ class MainWindow(QMainWindow):
         self.show()
 
     def startModelUI(self):
-        self.Model = ModelUI(self)
+        self.Model = ModelUI()
         self.setWindowTitle("Modelling Handwriting Analysis")
         self.setCentralWidget(self.Model)
         self.show()
