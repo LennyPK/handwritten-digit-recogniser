@@ -1,5 +1,7 @@
 import sys
+from test_gui import *
 from PyQt5.QtWidgets import *
+
 
 '''This window is for when File->Train is clicked'''
 
