@@ -1,7 +1,8 @@
-import sys
 from train_gui import*
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import *
+from PyQt5 import QtCore, QtGui, QtWidgets, uic
+from PyQt5.QtCore import Qt
 
 class HomeUI(QWidget):
     def __init__(self):
@@ -9,13 +10,8 @@ class HomeUI(QWidget):
         self.setupUI()
 
     def setupUI(self, parent=None):
-        '''#grid
-        grid = QGridLayout()
 
-        self.setLayout(grid)       
-        self.setGeometry(300, 300, 1000, 800)
-        self.show()'''
-
+        
         # centering the window
         WinInfo = self.frameGeometry()
         MonitorInfo = QDesktopWidget().availableGeometry().center()
@@ -38,10 +34,9 @@ class ModelUI(QWidget):
 
     def setupUI(self, parent=None):
 
-        #grid
+        #setting up the size of the window
         grid = QGridLayout()
-        self.setLayout(grid)       
-        self.setGeometry(300, 300, 1000, 800)
+        self.setLayout(grid)
 
         # centering the window
         WinInfo = self.frameGeometry()
@@ -55,21 +50,26 @@ class ModelUI(QWidget):
         ranBtn = QPushButton(" &Random")
         modBtn = QPushButton(" &Model")
         recBtn = QPushButton(" &Recognise")
-        grid.addWidget(clearBtn,0,0,1,1)
-        grid.addWidget(ranBtn,1,0,1,1)
-        grid.addWidget(modBtn,2,0,1,1)
-        grid.addWidget(recBtn,3,0,1,1)
+        grid.addWidget(clearBtn,0,1)
+        grid.addWidget(ranBtn,1,1)
+        grid.addWidget(modBtn,2,1)
+        grid.addWidget(recBtn,3,1)
 
-        test_img = QLabel('hi')
-
-        test_img.setPixmap(QPixmap('img_9.png'))
-        grid.addWidget(test_img,0,0,0,0)
+        #self.label = QLabel('hi')
+        #canvas = QtGui.QPixmap(400,300)
+        #self.label.setPixmap(canvas)
+        #grid.addWidget(self.label,0,0,0,0)
 
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow,self).__init__()
         self.w = None
+
+        #grid
+        grid = QGridLayout()
+        self.setLayout(grid)       
+        self.setGeometry(300, 300, 1000, 800)
 
         #Actions
         trainAction = QAction('Train Model', self)
@@ -84,7 +84,6 @@ class MainWindow(QMainWindow):
 
         viewTrainAction = QAction('View Training Images', self)
         #viewTrainAction.setShortcut()
-        #viewTrainAction.setStatusTip()
         viewTrainAction.triggered.connect(self.startModelUI)
 
 
