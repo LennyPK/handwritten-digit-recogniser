@@ -10,13 +10,8 @@ class HomeUI(QWidget):
         self.setupUI()
 
     def setupUI(self, parent=None):
+        label = QLabel("Modelling Analysis")
 
-        
-        # centering the window
-        WinInfo = self.frameGeometry()
-        MonitorInfo = QDesktopWidget().availableGeometry().center()
-        WinInfo.moveCenter(MonitorInfo)
-        self.move(WinInfo.topLeft())
 
     #When 'Train Model' is clicked
     def showTrainWindow(self, checked):
@@ -70,6 +65,12 @@ class MainWindow(QMainWindow):
         grid = QGridLayout()
         self.setLayout(grid)       
         self.setGeometry(300, 300, 1000, 800)
+
+        # centering the window
+        WinInfo = self.frameGeometry()
+        MonitorInfo = QDesktopWidget().availableGeometry().center()
+        WinInfo.moveCenter(MonitorInfo)
+        self.move(WinInfo.topLeft())
 
         #Actions
         trainAction = QAction('Train Model', self)
