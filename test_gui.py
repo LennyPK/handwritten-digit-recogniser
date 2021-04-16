@@ -10,17 +10,7 @@ class HomeUI(QWidget):
         self.setupUI()
 
     def setupUI(self, parent=None):
-        label = QLabel("Modelling Analysis")
-
-
-    #When 'Train Model' is clicked
-    def showTrainWindow(self, checked):
-        if self.w is None:
-            self.w = trainModelWindow()
-            self.w.show()
-        else:
-            self.w.close()
-            self.w = None    
+        label = QLabel("Modelling Analysis")  
 
 class ModelUI(QWidget):
     def __init__(self):
@@ -50,10 +40,10 @@ class ModelUI(QWidget):
         grid.addWidget(modBtn,2,1)
         grid.addWidget(recBtn,3,1)
 
-        #self.label = QLabel('hi')
+        self.label = QLabel('hi')
         #canvas = QtGui.QPixmap(400,300)
         #self.label.setPixmap(canvas)
-        #grid.addWidget(self.label,0,0,0,0)
+        grid.addWidget(self.label,0,0)
 
 
 class MainWindow(QMainWindow):
