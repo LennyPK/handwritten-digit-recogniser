@@ -1,5 +1,5 @@
 import sys
-from test_gui import *
+from main_window import *
 from PyQt5.QtWidgets import *
 
 

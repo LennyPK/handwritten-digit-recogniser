@@ -1,9 +1,11 @@
 from train_gui import*
-from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QPainter, QPen
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt
 
+
+'''HomeUI is the window that shows up when we run the code'''
 class HomeUI(QWidget):
     def __init__(self):
         super().__init__()
@@ -12,15 +14,23 @@ class HomeUI(QWidget):
     def setupUI(self, parent=None):
         label = QLabel("Modelling Analysis")  
 
+
+'''ModelUI is the window that is used when dealing with the drawing canvas'''
 class ModelUI(QWidget):
     def __init__(self):
         super().__init__()
         self.setupUI()
 
+    '''setupUI() is used to place and set up the group boxes used in ModelUI'''
     def setupUI(self, parent=None):
 
-        #setting up the size of the window
+        # setting up the layout of the window into groups
         grid = QGridLayout()
+
+
+        #grid.addWidget(self.drawingCanvasGroup(), 0,0)
+        grid.addWidget(self.btnGroup(), 0,1)
+        grid.addWidget(self.finalGroup(), 1, 1)
         self.setLayout(grid)
 
         # centering the window
@@ -29,22 +39,60 @@ class ModelUI(QWidget):
         WinInfo.moveCenter(MonitorInfo)
         self.move(WinInfo.topLeft())
 
-        #Make buttons
-        #modelBtns = QVBoxLayout()
-        clearBtn = QPushButton(" &Clear")
-        ranBtn = QPushButton(" &Random")
-        modBtn = QPushButton(" &Model")
-        recBtn = QPushButton(" &Recognise")
-        grid.addWidget(clearBtn,0,1)
-        grid.addWidget(ranBtn,1,1)
-        grid.addWidget(modBtn,2,1)
-        grid.addWidget(recBtn,3,1)
+        self.label = QtWidgets.QLabel()
+        canvas = QtGui.QPixmap(600, 600)
+        canvas.fill(QtGui.QColor('#ffffff')) # Fill entire canvas white.
+        self.label.setPixmap(canvas)
+        grid.addWidget(self.label,0,0,Qt.AlignLeft)
+        self.last_x, self.last_y = None, None
 
-        self.label = QLabel('hi')
-        #canvas = QtGui.QPixmap(400,300)
-        #self.label.setPixmap(canvas)
-        grid.addWidget(self.label,0,0)
+    def btnGroup(self):
+            groupBox = QGroupBox('Buttons Group')
+            
+            # Make buttons
+            clearBtn = QPushButton(" &Clear")
+            ranBtn = QPushButton(" &Random")
+            modBtn = QPushButton(" &Model")
+            recBtn = QPushButton(" &Recognise")
 
+            btnBox = QVBoxLayout()
+            btnBox.addWidget(clearBtn)
+            btnBox.addWidget(ranBtn)
+            btnBox.addWidget(modBtn)
+            btnBox.addWidget(recBtn)
+
+            groupBox.setLayout(btnBox)
+
+            return groupBox
+
+    '''Placeholding box at the moment'''
+    def finalGroup(self):
+        groupBox = QGroupBox('Predictions')
+
+        return groupBox
+
+
+    def mouseMoveEvent(self, e):
+        if self.last_x is None: # First event.
+            self.last_x = e.x()
+            self.last_y = e.y()
+            return # Ignore the first time.
+
+        painter = QtGui.QPainter(self.label.pixmap())
+        pen = QPen(Qt.black)
+        pen.setWidth(3)
+        painter.setPen(pen)
+        painter.drawLine(self.last_x, self.last_y, e.x(), e.y())
+        painter.end()
+        self.update()
+
+        # Update the origin for next time.
+        self.last_x = e.x()
+        self.last_y = e.y()
+
+    def mouseReleaseEvent(self, e):
+        self.last_x = None
+        self.last_y = None
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
