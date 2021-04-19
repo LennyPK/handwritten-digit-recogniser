@@ -5,6 +5,11 @@ from torchvision import datasets, transforms
 import torch.nn.functional as F
 import time
 
+global First
+global Last
+global lastEpoch
+global totalBatches
+
 # Training settings
 batch_size = 64
 device = 'cuda' if cuda.is_available() else 'cpu'
@@ -56,6 +61,7 @@ optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.5)
 
 
 def train(epoch):
+    global percentage
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
         data, target = data.to(device), target.to(device)
@@ -64,7 +70,15 @@ def train(epoch):
         loss = criterion(output, target)
         loss.backward()
         optimizer.step()
+
+        ''' '''
+        if batch_idx % 1 == 0:
+            trainProgress(batch_idx * len(data), epoch)
+            displayPercentage()
+
         if batch_idx % 10 == 0:
+            # trainProgress(batch_idx * len(data), epoch)
+            # displayPercentage()
             print('Train Epoch: {} | Batch Status: {}/{} ({:.0f}%) | Loss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.item()))
@@ -88,7 +102,58 @@ def test():
           f'({100. * correct / len(test_loader.dataset):.0f}%)')
 
 
+'''moved main code'''
+def testInput(first, last):
+    global First
+    global Last
+    global lastEpoch
+    global totalBatches
+    First = first
+    Last = last
+    totalBatches = []
+    lastEpoch = 0
+    ''''''
+    since = time.time()
+    for epoch in range(first, last):
+        epoch_start = time.time()
+        train(epoch)
+        m, s = divmod(time.time() - epoch_start, 60)
+        print(f'Training time: {m:.0f}m {s:.0f}s')
+        test()
+        m, s = divmod(time.time() - epoch_start, 60)
+        print(f'Testing time: {m:.0f}m {s:.0f}s')
+
+    m, s = divmod(time.time() - since, 60)
+    print(f'Total Time: {m:.0f}m {s:.0f}s\nModel was trained on {device}!')
+    
+'''kees track of how far through each epoch the AI has trained through'''
+def trainProgress(batch, epoch):
+    global First
+    global Last
+    global lastEpoch
+    global totalBatches
+    if epoch > lastEpoch:
+        lastEpoch = epoch
+        totalBatches.append(batch)
+    else:
+        totalBatches[epoch - 1] = batch
+
+def displayPercentage():
+    global First
+    global Last
+    global totalBatches
+    completed = 0
+    for total in totalBatches:
+        completed += total
+    print(100. * completed / (len(train_loader.dataset) * (Last - First)))
+    return int(100. * completed / (len(train_loader.dataset) * (Last - First)))
+
+    
+
 if __name__ == '__main__':
+    # percentage = 0
+    testInput(1, 9)
+    """
     since = time.time()
     for epoch in range(1, 10):
         epoch_start = time.time()
@@ -101,3 +166,4 @@ if __name__ == '__main__':
 
     m, s = divmod(time.time() - since, 60)
     print(f'Total Time: {m:.0f}m {s:.0f}s\nModel was trained on {device}!')
+    """

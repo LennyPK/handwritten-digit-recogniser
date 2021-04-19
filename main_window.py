@@ -1,8 +1,8 @@
 from train_gui import*
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QPainter, QPen
+from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QTimer
 
 
 '''HomeUI is the window that shows up when we run the code'''
@@ -12,7 +12,14 @@ class HomeUI(QWidget):
         self.setupUI()
 
     def setupUI(self, parent=None):
-        label = QLabel("Modelling Analysis")  
+        '''Text on the Home Window'''
+        self.layout = QGridLayout()
+        self.label = QLabel("Handwritten\nDigit Analyser")
+        self.layout.addWidget(self.label, 0, 0)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setFont(QFont('Cambria', 80))
+        self.label.setWordWrap(True)
+        self.setLayout(self.layout) 
 
 
 '''ModelUI is the window that is used when dealing with the drawing canvas'''
@@ -25,13 +32,12 @@ class ModelUI(QWidget):
     def setupUI(self, parent=None):
 
         # setting up the layout of the window into groups
-        grid = QGridLayout()
-
+        self.grid = QGridLayout()
 
         #grid.addWidget(self.drawingCanvasGroup(), 0,0)
-        grid.addWidget(self.btnGroup(), 0,1)
-        grid.addWidget(self.finalGroup(), 1, 1)
-        self.setLayout(grid)
+        self.grid.addWidget(self.btnGroup(), 0,1)
+        self.grid.addWidget(self.finalGroup(), 1, 1)
+        self.setLayout(self.grid)
 
         # centering the window
         WinInfo = self.frameGeometry()
@@ -39,18 +45,48 @@ class ModelUI(QWidget):
         WinInfo.moveCenter(MonitorInfo)
         self.move(WinInfo.topLeft())
 
+        '''making the canvas and adding it the layout'''
         self.label = QtWidgets.QLabel()
-        canvas = QtGui.QPixmap(600, 600)
-        canvas.fill(QtGui.QColor('#ffffff')) # Fill entire canvas white.
-        self.label.setPixmap(canvas)
-        grid.addWidget(self.label,0,0,Qt.AlignLeft)
+        self.canvas = QtGui.QPixmap(600, 600)
+        self.canvas.fill(QtGui.QColor('#ffffff')) # Fill entire canvas white.
+        self.label.setPixmap(self.canvas)
+        self.grid.addWidget(self.label, 0, 0, Qt.AlignLeft)
         self.last_x, self.last_y = None, None
+
+    '''Drawing on the Canvas'''
+    def mouseMoveEvent(self, e):
+        if self.last_x is None: # First event.
+            self.last_x = e.x()
+            self.last_y = e.y()
+            return # Ignore the first time.
+
+        painter = QtGui.QPainter(self.label.pixmap())
+        pen = QPen(Qt.black)
+        pen.setWidth(10)
+        painter.setPen(pen)
+        painter.drawLine(self.last_x, self.last_y, e.x(), e.y())
+        painter.end()
+        self.update()
+
+        # Update the origin for next time.
+        self.last_x = e.x()
+        self.last_y = e.y()
+
+    def mouseReleaseEvent(self, e):
+        self.last_x = None
+        self.last_y = None
+
+    '''NOT WORKING'''
+    def clearCanvas(self):
+        self.canvas.fill(QtGui.QColor('#ffffff'))
 
     def btnGroup(self):
             groupBox = QGroupBox('Buttons Group')
             
             # Make buttons
             clearBtn = QPushButton(" &Clear")
+            clearBtn.clicked.connect(self.clearCanvas)
+
             ranBtn = QPushButton(" &Random")
             modBtn = QPushButton(" &Model")
             recBtn = QPushButton(" &Recognise")
@@ -69,30 +105,7 @@ class ModelUI(QWidget):
     def finalGroup(self):
         groupBox = QGroupBox('Predictions')
 
-        return groupBox
-
-
-    def mouseMoveEvent(self, e):
-        if self.last_x is None: # First event.
-            self.last_x = e.x()
-            self.last_y = e.y()
-            return # Ignore the first time.
-
-        painter = QtGui.QPainter(self.label.pixmap())
-        pen = QPen(Qt.black)
-        pen.setWidth(3)
-        painter.setPen(pen)
-        painter.drawLine(self.last_x, self.last_y, e.x(), e.y())
-        painter.end()
-        self.update()
-
-        # Update the origin for next time.
-        self.last_x = e.x()
-        self.last_y = e.y()
-
-    def mouseReleaseEvent(self, e):
-        self.last_x = None
-        self.last_y = None
+        return groupBox        
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -110,9 +123,9 @@ class MainWindow(QMainWindow):
         WinInfo.moveCenter(MonitorInfo)
         self.move(WinInfo.topLeft())
 
-        #Actions
+        # Actions
         trainAction = QAction('Train Model', self)
-        #trainAction.setShortcut()
+        trainAction.setShortcut('Ctrl+T')
         trainAction.setStatusTip('Train Model')
         trainAction.triggered.connect(self.showTrainWindow)
 
@@ -144,7 +157,7 @@ class MainWindow(QMainWindow):
 
     def startHomeUI(self):
         self.Home = HomeUI()
-        self.setWindowTitle("Home")
+        self.setWindowTitle("Handwritten Digit Recongizition")
         self.setCentralWidget(self.Home)
         self.show()
 
