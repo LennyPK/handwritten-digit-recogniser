@@ -11,7 +11,7 @@ global lastEpoch
 global totalBatches
 
 # Training settings
-batch_size = 64
+batch_size = 128
 device = 'cuda' if cuda.is_available() else 'cpu'
 print(f'Training MNIST Model on {device}\n{"=" * 44}')
 
@@ -72,13 +72,11 @@ def train(epoch):
         optimizer.step()
 
         ''' '''
-        if batch_idx % 1 == 0:
+        if batch_idx:
             trainProgress(batch_idx * len(data), epoch)
             displayPercentage()
 
         if batch_idx % 10 == 0:
-            # trainProgress(batch_idx * len(data), epoch)
-            # displayPercentage()
             print('Train Epoch: {} | Batch Status: {}/{} ({:.0f}%) | Loss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.item()))
@@ -125,6 +123,7 @@ def testInput(first, last):
 
     m, s = divmod(time.time() - since, 60)
     print(f'Total Time: {m:.0f}m {s:.0f}s\nModel was trained on {device}!')
+    return 1
     
 '''kees track of how far through each epoch the AI has trained through'''
 def trainProgress(batch, epoch):
@@ -136,7 +135,9 @@ def trainProgress(batch, epoch):
         lastEpoch = epoch
         totalBatches.append(batch)
     else:
-        totalBatches[epoch - 1] = batch
+        if totalBatches[epoch - 1] < batch:
+            totalBatches[epoch - 1] = batch
+    
 
 def displayPercentage():
     global First
@@ -145,14 +146,13 @@ def displayPercentage():
     completed = 0
     for total in totalBatches:
         completed += total
-    print(100. * completed / (len(train_loader.dataset) * (Last - First)))
-    return int(100. * completed / (len(train_loader.dataset) * (Last - First)))
-
+    # print(100. * completed / (len(train_loader.dataset) * (Last - First)))
+    return (100. * completed / (len(train_loader.dataset) * (Last - First)))
     
 
 if __name__ == '__main__':
     # percentage = 0
-    testInput(1, 9)
+    testInput(1, 10)
     """
     since = time.time()
     for epoch in range(1, 10):
