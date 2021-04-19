@@ -65,6 +65,8 @@ def train(epoch):
         loss.backward()
         optimizer.step()
         if batch_idx % 10 == 0:
+            ''' '''
+            # trainProgress(epoch)
             print('Train Epoch: {} | Batch Status: {}/{} ({:.0f}%) | Loss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.item()))
@@ -87,8 +89,8 @@ def test():
     print(f'===========================\nTest set: Average loss: {test_loss:.4f}, Accuracy: {correct}/{len(test_loader.dataset)} '
           f'({100. * correct / len(test_loader.dataset):.0f}%)')
 
-
-if __name__ == '__main__':
+''' '''
+def testInput():
     since = time.time()
     for epoch in range(1, 10):
         epoch_start = time.time()
@@ -101,3 +103,26 @@ if __name__ == '__main__':
 
     m, s = divmod(time.time() - since, 60)
     print(f'Total Time: {m:.0f}m {s:.0f}s\nModel was trained on {device}!')
+
+# def trainProgress(epoch):
+#     percentage = 
+#     print(f"{(10)}")
+
+# def totalPercentage()
+
+if __name__ == '__main__':
+    testInput()
+    """
+    since = time.time()
+    for epoch in range(1, 10):
+        epoch_start = time.time()
+        train(epoch)
+        m, s = divmod(time.time() - epoch_start, 60)
+        print(f'Training time: {m:.0f}m {s:.0f}s')
+        test()
+        m, s = divmod(time.time() - epoch_start, 60)
+        print(f'Testing time: {m:.0f}m {s:.0f}s')
+
+    m, s = divmod(time.time() - since, 60)
+    print(f'Total Time: {m:.0f}m {s:.0f}s\nModel was trained on {device}!')
+    """
