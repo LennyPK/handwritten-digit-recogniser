@@ -1,8 +1,9 @@
 import sys
+from train_gui import*
 from PyQt5.QtWidgets import *
 
 
-class MainWindow(QMainWindow):
+class ModelMainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -14,10 +15,11 @@ class MainWindow(QMainWindow):
 
         #grid
         grid = QGridLayout()
+        self.setLayout(grid)     
 
-        #self.move(300, 300)
-        #self.resize(600, 400) 
-        self.setLayout(grid)       
+        grid.addWidget(Q)
+
+
         self.setGeometry(300, 300, 1000, 800)
         self.show()
 
@@ -38,8 +40,6 @@ class MainWindow(QMainWindow):
         quitAction.setStatusTip('Quit application')
         quitAction.triggered.connect(qApp.quit)
 
-
-
         viewTrainAction = QAction('View Training Images', self)
         #viewTrainAction.setShortcut()
         #viewTrainAction.setStatusTip()
@@ -51,40 +51,15 @@ class MainWindow(QMainWindow):
         #viewTestAction.setStatusTip()
         #viewTestAction.triggered.connect()
 
-
         menubar = self.menuBar()
         #File menubar (train model, quit)
         filemenu = menubar.addMenu('&File')
         filemenu.addAction(trainAction)
         filemenu.addAction(quitAction)
 
-
         viewmenu = menubar.addMenu('&View')
         viewmenu.addAction(viewTrainAction)        
         viewmenu.addAction(viewTestAction)
 
 
-    #When 'Train Model' is clicked
-    def showTrainWindow(self, checked):
-        if self.w is None:
-            self.w = trainModelWindow()
-            self.w.show()
-        else:
-            self.w.close()
-            self.w = None
 
-class trainModelWindow(QMainWindow):
-
-    def __init__(self):
-        super().__init__()
-        self.initUI()
-
-    def initUI(self):
-        self.setWindowTitle('Handwriting Training')
-        self.show()
-
-
-if __name__ == '__main__':
-   app = QApplication(sys.argv)
-   ex = MainWindow()
-   sys.exit(app.exec_())
