@@ -22,14 +22,15 @@ class trainModelWindow(QWidget):
         self.pbar.setValue(0)
         
         self.timer = QBasicTimer()
-        self.step = 0                           # init timer as 0
+        # self.step = displayPercentage()            
 
         # self.timer.timeout.connect(self.handleTimer)
 
         self.pbar.show() 
 
         self.trainBtn = QPushButton('&Train',self)
-        self.trainBtn.clicked.connect(lambda: testInput(1, 10))
+        self.trainBtn.clicked.connect(self.doAction)
+        self.trainBtn.clicked.connect(lambda: testInput(1, 4))
         self.trainBtn.show()
 
         # self.cancelTrain = QPushButton('&Cancel Training', self)
@@ -45,23 +46,21 @@ class trainModelWindow(QWidget):
         #self.trainBtn.clicked.connect()
 
     def timerEvent(self, e):
-        
-        if displayPercentage >= 100:
+        percentage = displayPercentage()
+        if percentage >= 99.5:
             self.timer.stop()
-            self.btn.setText('Finished')
             return
+        self.pbar.setValue(int(percentage)) 
 
-        self.pbar.setValue(displayPercentage()) 
-    
     def doAction(self):
+        
         if self.timer.isActive():
             self.timer.stop()
             # self.btn.setText('Start')
-        # else:
-        #     self.timer.start(100, self)
+        else:
+            self.timer.start(10, self)
             # self.btn.setText('Stop')
 
-    
 
 
 
