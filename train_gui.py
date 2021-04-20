@@ -52,8 +52,8 @@ class trainModelWindow(QWidget):
         gridLayout = QtWidgets.QGridLayout()
         gridLayout.addWidget(self.trainBtn, 0, 0, Qt.AlignLeft)
         gridLayout.addWidget(self.results, 0, 1, Qt.AlignRight)
-        gridLayout.addWidget(self.epochSlider, 1, 0)
-        gridLayout.addWidget(self.sliderLabel, 1, 1)
+        # gridLayout.addWidget(self.epochSlider, 1, 0)
+        # gridLayout.addWidget(self.sliderLabel, 1, 1)
         # gridLayout.addWidget(self.cancelTrain, 1, 0)
         gridLayout.addWidget(self.pbar, 2, 0)
 
@@ -63,7 +63,7 @@ class trainModelWindow(QWidget):
     def updateSliderLabel(self, value):
         print(value)
         self.sliderLabel.setText(str(value))
-        worker.lastEpochNum = value
+        # self.worker.lastEpochNum = value
 
     def timerEvent(self, e):
         percentage = displayPercentage()
@@ -81,15 +81,51 @@ class trainModelWindow(QWidget):
             self.timer.start(10, self)
     
     def workerThread(self):
-        self.worker = Worker()
+        worker = Worker()
+        # self.worker_signals = ThreadSignals()
+        # self.worker = TestWorker(testInput(1, self.lastEpochNum))
         self.threadpool.start(worker)
+
+        
 
 
 '''making another thread'''
-class Worker(QObject):
+class Worker(QRunnable):
     lastEpochNum = 2
 
     @pyqtSlot()
     def run(self):
         print('hi')
-        testInput(1, self.lastEpochNum)
+        # testInput(1, self.lastEpochNum)
+        testInput(1, 12)
+
+# Maybe change this to worker and the other one above to ThreadSignals or WorkerSignals
+# class ThreadSignals(QObject):
+#     model_progress = pyqtSignal()
+#     finished = pyqtSignal()
+
+# class TestWorker(QRunnable):
+
+#     def __init__(self, fn, *args, **kwargs):
+#         super(TestWorker, self).__init__()
+#         self.fn = fn
+#         self.args = args
+#         self.kwargs = kwargs
+#         self.signals = ThreadSignals()
+
+#         self.kwargs['cbk_progress'] = self.signals.model_progress
+
+#     @pyqtSlot()
+#     def run(self):
+
+#         try:
+#             result = self.fn(*self.args, **self.kwargs)
+        
+#         except:
+#             print("didnt work you shit")
+#         else:
+#             print("meme")
+#         finally:
+#             self.signals.finished.emit()
+
+
