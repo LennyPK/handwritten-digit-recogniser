@@ -9,9 +9,12 @@ global First
 global Last
 global lastEpoch
 global totalBatches
+global trainFinish
+global test_loss
+global correct
 
 # Training settings
-batch_size = 128
+batch_size = 64
 device = 'cuda' if cuda.is_available() else 'cpu'
 print(f'Training MNIST Model on {device}\n{"=" * 44}')
 
@@ -106,10 +109,14 @@ def testInput(first, last):
     global Last
     global lastEpoch
     global totalBatches
+    global trainFinish
+
     First = first
     Last = last
     totalBatches = []
     lastEpoch = 0
+    trainFinish = 0
+
     ''''''
     since = time.time()
     for epoch in range(first, last):
@@ -122,15 +129,15 @@ def testInput(first, last):
         print(f'Testing time: {m:.0f}m {s:.0f}s')
 
     m, s = divmod(time.time() - since, 60)
+    
     print(f'Total Time: {m:.0f}m {s:.0f}s\nModel was trained on {device}!')
-    return 1
+    trainFinish = 1
     
 '''kees track of how far through each epoch the AI has trained through'''
 def trainProgress(batch, epoch):
-    global First
-    global Last
     global lastEpoch
     global totalBatches
+    
     if epoch > lastEpoch:
         lastEpoch = epoch
         totalBatches.append(batch)
@@ -146,13 +153,19 @@ def displayPercentage():
     completed = 0
     for total in totalBatches:
         completed += total
-    # print(100. * completed / (len(train_loader.dataset) * (Last - First)))
     return (100. * completed / (len(train_loader.dataset) * (Last - First)))
-    
+
+def trainStatus():
+    global trainFinish
+    if trainFinish == 0:
+        return False
+    else:
+        return True
 
 if __name__ == '__main__':
     # percentage = 0
-    testInput(1, 10)
+    testInput(1, 2)
+    print(trainStatus())
     """
     since = time.time()
     for epoch in range(1, 10):
