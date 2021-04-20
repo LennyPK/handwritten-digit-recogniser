@@ -4,7 +4,6 @@ from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt, QTimer
 
-
 '''HomeUI is the window that shows up when we run the code'''
 class HomeUI(QWidget):
     def __init__(self):
@@ -30,8 +29,6 @@ class ModelUI(QWidget):
 
     '''setupUI() is used to place and set up the group boxes used in ModelUI'''
     def setupUI(self, parent=None):
-
-        # setting up the layout of the window into groups
         self.grid = QGridLayout()
 
         #grid.addWidget(self.drawingCanvasGroup(), 0,0)
@@ -39,7 +36,7 @@ class ModelUI(QWidget):
         self.grid.addWidget(self.finalGroup(), 1, 1)
         self.setLayout(self.grid)
 
-        # centering the window
+        '''centering the window'''
         WinInfo = self.frameGeometry()
         MonitorInfo = QDesktopWidget().availableGeometry().center()
         WinInfo.moveCenter(MonitorInfo)
@@ -78,7 +75,10 @@ class ModelUI(QWidget):
 
     '''NOT WORKING'''
     def clearCanvas(self):
-        self.canvas.fill(QtGui.QColor('#ffffff'))
+        painter = QtGui.QPainter(self.label.pixmap())
+        painter.fillRect(0, 0, 600, 600, color='white')
+        painter.end()
+        self.update()
 
     def btnGroup(self):
             groupBox = QGroupBox('Buttons Group')
