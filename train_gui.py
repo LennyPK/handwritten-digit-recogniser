@@ -26,6 +26,14 @@ class trainModelWindow(QWidget):
         # self.step = displayPercentage()            
 
         # self.timer.timeout.connect(self.handleTimer)
+        '''Slider to choose number of epoch's'''
+        self.epochSlider = QSlider(Qt.Horizontal, self)
+        self.epochSlider.setGeometry(30, 40, 200, 30)
+        self.epochSlider.setRange(2, 20)
+        self.epochSlider.valueChanged[int].connect(self.updateSliderLabel)
+        self.sliderLabel = QLabel('2', self)
+        self.sliderLabel.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
+        self.sliderLabel.setMinimumWidth(80)
 
         self.pbar.show() 
 
@@ -43,11 +51,17 @@ class trainModelWindow(QWidget):
         gridLayout = QtWidgets.QGridLayout()
         gridLayout.addWidget(self.trainBtn, 0, 0, Qt.AlignLeft)
         gridLayout.addWidget(self.results, 0, 1, Qt.AlignRight)
+        gridLayout.addWidget(self.epochSlider, 1, 0)
+        gridLayout.addWidget(self.sliderLabel, 1, 1)
         # gridLayout.addWidget(self.cancelTrain, 1, 0)
-        gridLayout.addWidget(self.pbar, 1, 0)
+        gridLayout.addWidget(self.pbar, 2, 0)
 
         self.setLayout(gridLayout)
         #self.trainBtn.clicked.connect()
+
+    def updateSliderLabel(self, value):
+        self.sliderLabel.setText(str(value))
+        self.lastEpochNum = value
 
     def timerEvent(self, e):
         percentage = displayPercentage()
@@ -73,4 +87,4 @@ class Worker(QRunnable):
 
     @pyqtSlot()
     def run(self):
-        testInput(1, 2)
+        testInput(1, value)
