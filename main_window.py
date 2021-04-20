@@ -107,10 +107,25 @@ class ModelUI(QWidget):
 
         return groupBox        
 
+'''ImageUI is the window to display the test images'''
+class ImageUI(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setupUI()
+
+    def setupUI(self, parent=None):
+        self.grid = QGridLayout()
+        self.imageLabel = QLabel()
+        self.test_image = QPixmap('img_9.png')
+        self.imageLabel.setPixmap(self.test_image)
+        self.grid.addWidget(self.imageLabel, 0, 0)
+        self.setLayout(self.grid) 
+
+
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
         super(MainWindow,self).__init__()
-        self.w = None
+        self.trainWin = None
 
         #grid
         grid = QGridLayout()
@@ -134,23 +149,20 @@ class MainWindow(QMainWindow):
         quitAction.setStatusTip('Quit application')
         quitAction.triggered.connect(qApp.quit)
 
-        viewTrainAction = QAction('View Training Images', self)
-        #viewTrainAction.setShortcut()
-        viewTrainAction.triggered.connect(self.startModelUI)
-
+        openAnalyserAction = QAction('Open Analyser', self)
+        openAnalyserAction.triggered.connect(self.startModelUI)
 
         viewTestAction = QAction('View Testing Images', self)
-        #viewTestAction.setShortcut()
-        #viewTestAction.setStatusTip()
-        #viewTestAction.triggered.connect()
+        viewTestAction.triggered.connect(self.startImageUI)
 
         menubar = self.menuBar()
-        #File menubar (train model, quit)
+        '''File menubar (train model, quit)'''
         filemenu = menubar.addMenu('&File')
         filemenu.addAction(trainAction)
         filemenu.addAction(quitAction)
+        '''View menubar (open analyser, view testing images)'''
         viewmenu = menubar.addMenu('&View')
-        viewmenu.addAction(viewTrainAction)        
+        viewmenu.addAction(openAnalyserAction)        
         viewmenu.addAction(viewTestAction)
 
         self.startHomeUI()
@@ -167,14 +179,22 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.Model)
         self.show()
 
+    def startImageUI(self):
+        self.Image = ImageUI()
+        self.setWindowTitle("Testing Images")
+        self.setCentralWidget(self.Image)
+        self.show()
+
     #When 'Train Model' is clicked
     def showTrainWindow(self, checked):
-        if self.w is None:
-            self.w = trainModelWindow()
-            self.w.show()
+        if self.trainWin is None:
+            self.trainWin = trainModelWindow()
+            self.trainWin.show()
         else:
-            self.w.close()
-            self.w = None
+            self.trainWin.close()
+            self.trainWin = None
+    
+    
 
 
 if __name__ == '__main__':

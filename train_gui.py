@@ -8,6 +8,7 @@ from ReLuTrainer import *
 '''This window is for when File->Train is clicked'''
 
 class trainModelWindow(QWidget):
+    lastEpochNum = 2
 
     def __init__(self):
         super().__init__()
@@ -60,8 +61,9 @@ class trainModelWindow(QWidget):
         #self.trainBtn.clicked.connect()
 
     def updateSliderLabel(self, value):
+        print(value)
         self.sliderLabel.setText(str(value))
-        self.lastEpochNum = value
+        #self.lastEpochNum = value
 
     def timerEvent(self, e):
         percentage = displayPercentage()
@@ -87,4 +89,5 @@ class Worker(QRunnable):
 
     @pyqtSlot()
     def run(self):
-        testInput(1, value)
+        print('hi')
+        testInput(1, self.w.lastEpochNum)
