@@ -39,7 +39,7 @@ class trainModelWindow(QWidget):
         self.pbar.show() 
 
         self.trainBtn = QPushButton('&Train',self)
-        # self.trainBtn.clicked.connect(self.doAction)
+        self.trainBtn.clicked.connect(self.doAction)
         self.trainBtn.clicked.connect(self.workerThread)
         self.trainBtn.show()
 
@@ -63,13 +63,14 @@ class trainModelWindow(QWidget):
     def updateSliderLabel(self, value):
         print(value)
         self.sliderLabel.setText(str(value))
-        #self.lastEpochNum = value
+        worker.lastEpochNum = value
 
     def timerEvent(self, e):
         percentage = displayPercentage()
         if percentage >= 100  or trainStatus():
             self.timer.stop()
             self.results = QLabel("Finished Training Model")
+            self.pbar.setValue(100)
             return
         self.pbar.setValue(int(percentage))
 
@@ -80,14 +81,15 @@ class trainModelWindow(QWidget):
             self.timer.start(10, self)
     
     def workerThread(self):
-        worker = Worker()
+        self.worker = Worker()
         self.threadpool.start(worker)
 
 
-# Step 1: Create a worker class
-class Worker(QRunnable):
+'''making another thread'''
+class Worker(QObject):
+    lastEpochNum = 2
 
     @pyqtSlot()
     def run(self):
         print('hi')
-        testInput(1, self.w.lastEpochNum)
+        testInput(1, self.lastEpochNum)
