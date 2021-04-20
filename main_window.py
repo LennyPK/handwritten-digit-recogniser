@@ -98,6 +98,8 @@ class MainWindow(QMainWindow):
         super(MainWindow,self).__init__()
         self.trainWin = None
 
+        self.setWindowIcon(QIcon('img_9.png'))
+
         #grid
         grid = QGridLayout()
         self.setLayout(grid)
@@ -165,9 +167,6 @@ class MainWindow(QMainWindow):
         else:
             self.trainWin.close()
             self.trainWin = None
-    
-    
-
 
 if __name__ == '__main__':
    app = QApplication(sys.argv)

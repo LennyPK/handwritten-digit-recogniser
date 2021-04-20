@@ -42,6 +42,8 @@ class CanvasModel(QLabel):
         self.last_x = e.x()
         self.last_y = e.y()
 
+        
+
     def mouseReleaseEvent(self, e):
         self.last_x = None
         self.last_y = None
