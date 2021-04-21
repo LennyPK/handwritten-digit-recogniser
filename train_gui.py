@@ -7,15 +7,15 @@ from ReLuTrainer import *
 
 '''This window is for when File->Train is clicked'''
 
-class trainModelWindow(QWidget):
-    lastEpochNum = 2
+class train_Model_Window(QWidget):
+    last_Epoch_Num = 2
 
     def __init__(self):
         super().__init__()
-        self.initUI()
-        self.threadpool = QThreadPool()
+        self.init_UI()
+        self.thread_pool = QThreadPool()
 
-    def initUI(self):
+    def init_UI(self):
         self.setWindowTitle('Handwriting Training')
         self.show()
 
@@ -24,80 +24,94 @@ class trainModelWindow(QWidget):
         self.pbar.setValue(0)
         
         self.timer = QBasicTimer()
-        # self.step = displayPercentage()            
+        # self.step = display_Percentage()            
 
         # self.timer.timeout.connect(self.handleTimer)
         '''Slider to choose number of epoch's'''
-        self.epochSlider = QSlider(Qt.Horizontal, self)
-        self.epochSlider.setGeometry(30, 40, 200, 30)
-        self.epochSlider.setRange(2, 20)
-        self.epochSlider.valueChanged[int].connect(self.updateSliderLabel)
-        self.sliderLabel = QLabel('2', self)
-        self.sliderLabel.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
-        self.sliderLabel.setMinimumWidth(80)
+        self.epoch_Slider = QSlider(Qt.Horizontal, self)
+        self.epoch_Slider.setGeometry(30, 40, 200, 30)
+        self.epoch_Slider.setRange(2, 20)
+        self.epoch_Slider.valueChanged[int].connect(self.update_Slider_Label)
+        self.slider_Label = QLabel('2', self)
+        self.slider_Label.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
+        self.slider_Label.setMinimumWidth(80)
 
         self.pbar.show() 
 
-        self.trainBtn = QPushButton('&Train',self)
-        self.trainBtn.clicked.connect(self.doAction)
-        self.trainBtn.clicked.connect(self.workerThread)
-        self.trainBtn.show()
+        self.train_Btn = QPushButton('&Train',self)
+        self.train_Btn.clicked.connect(self.do_Action)
+        self.train_Btn.clicked.connect(self.worker_Thread)
+        self.train_Btn.show()
 
         self.results = QLabel("")
         
-        # self.cancelTrain = QPushButton('&Cancel Training', self)
-        # self.cancelTrain.clicked.connect(stopTraining)
-        # self.cancelTrain.show()
+        # self.cancel_Train = QPushButton('&Cancel Training', self)
+        # self.cancel_Train.clicked.connect(stop_Training)
+        # self.cancel_Train.show()
 
-        gridLayout = QtWidgets.QGridLayout()
-        gridLayout.addWidget(self.trainBtn, 0, 0, Qt.AlignLeft)
-        gridLayout.addWidget(self.results, 0, 1, Qt.AlignRight)
-        # gridLayout.addWidget(self.epochSlider, 1, 0)
-        # gridLayout.addWidget(self.sliderLabel, 1, 1)
-        # gridLayout.addWidget(self.cancelTrain, 1, 0)
-        gridLayout.addWidget(self.pbar, 2, 0)
+        train_win_Layout = QtWidgets.QGridLayout()
+        train_win_Layout.addWidget(self.train_Btn, 0, 0, Qt.AlignLeft)
+        train_win_Layout.addWidget(self.results, 0, 1, Qt.AlignRight)
+        # train_win_Layout.addWidget(self.epoch_Slider, 1, 0)
+        # train_win_Layout.addWidget(self.slider_Label, 1, 1)
+        # train_win_Layout.addWidget(self.cancelTrain, 1, 0)
+        train_win_Layout.addWidget(self.pbar, 2, 0)
 
-        self.setLayout(gridLayout)
-        #self.trainBtn.clicked.connect()
+        self.setLayout(train_win_Layout)
+        #self.train_Btn.clicked.connect()
 
-    def updateSliderLabel(self, value):
+    def update_Slider_Label(self, value):
         print(value)
-        self.sliderLabel.setText(str(value))
-        # self.worker.lastEpochNum = value
+        self.slider_Label.setText(str(value))
+        # self.worker.last_Epoch_Num = value
 
-    def timerEvent(self, e):
-        percentage = displayPercentage()
-        if percentage >= 100  or trainStatus():
+    def timer_Event(self, e):
+        percentage = display_Percentage()
+        if percentage >= 100  or train_Status():
             self.timer.stop()
             self.results = QLabel("Finished Training Model")
             self.pbar.setValue(100)
             return
         self.pbar.setValue(int(percentage))
 
-    def doAction(self):
+    def do_Action(self):
         if self.timer.isActive():
             self.timer.stop()
         else:
             self.timer.start(10, self)
     
-    def workerThread(self):
+    def worker_Thread(self):
         worker = Worker()
         # self.worker_signals = ThreadSignals()
-        # self.worker = TestWorker(testInput(1, self.lastEpochNum))
-        self.threadpool.start(worker)
+        # self.worker = TestWorker(testInput(1, self.last_Epoch_Num))
+        self.thread_pool.start(worker)
 
         
 
 
 '''making another thread'''
 class Worker(QRunnable):
-    lastEpochNum = 2
+    last_Epoch_Num = 2
 
     @pyqtSlot()
     def run(self):
         print('hi')
-        # testInput(1, self.lastEpochNum)
-        testInput(1, 12)
+        '''Remove if it doesn't work'''
+        run_Status = True
+
+        # test_Input(1, self.last_Epoch_Num)
+        test_Input(1, 5)
+
+        '''Remove if it doesn't work'''
+        if run_Status = False:
+            break
+
+    '''Remove if it doesn't work'''
+    def cancel_Train(self):
+        self.run_Status = False
+'''Remove if it doesn't work'''
+class WorkerSignals(QObject):
+    progress = pyqtSignal(int)
 
 # Maybe change this to worker and the other one above to ThreadSignals or WorkerSignals
 # class ThreadSignals(QObject):
