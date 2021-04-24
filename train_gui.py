@@ -3,7 +3,7 @@ from main_window import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from ReLuTrainer import *
-
+#from test_trainer import *
 
 '''This window is for when File->Train is clicked'''
 
@@ -58,7 +58,6 @@ class trainModelWindow(QWidget):
         gridLayout.addWidget(self.pbar, 2, 0)
 
         self.setLayout(gridLayout)
-        #self.trainBtn.clicked.connect()
 
     def updateSliderLabel(self, value):
         print(value)
@@ -86,17 +85,15 @@ class trainModelWindow(QWidget):
         # self.worker = TestWorker(testInput(1, self.lastEpochNum))
         self.threadpool.start(worker)
 
-        
-
-
 '''making another thread'''
 class Worker(QRunnable):
     lastEpochNum = 2
 
     @pyqtSlot()
     def run(self):
-        # testInput(1, self.lastEpochNum)
-        testInput(1, 12)
+        # conv_model = Net()
+        # train_model(2, conv_model)
+        testInput(1,2)
 
 # Maybe change this to worker and the other one above to ThreadSignals or WorkerSignals
 # class ThreadSignals(QObject):
