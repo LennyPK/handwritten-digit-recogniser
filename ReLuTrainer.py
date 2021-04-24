@@ -3,6 +3,7 @@ from torch import nn, optim, cuda
 from torch.utils import data
 from torchvision import datasets, transforms
 import torch.nn.functional as F
+import torch
 import time
 
 global First
@@ -102,6 +103,48 @@ def test():
     print(f'===========================\nTest set: Average loss: {test_loss:.4f}, Accuracy: {correct}/{len(test_loader.dataset)} '
           f'({100. * correct / len(test_loader.dataset):.0f}%)')
 
+def evaluate():
+    model.eval()
+    loss = 0
+    correct = 0
+    
+    for data, target in test_loader:
+        data = data.unsqueeze(1)
+        data, target = data, target
+        
+        if torch.cuda.is_available():
+            data = data.cuda()
+            target = target.cuda()
+        
+        output = model(data)
+        
+        loss += F.cross_entropy(output, target, size_average=False).data[0]
+
+        pred = output.data.max(1, keepdim=True)[1]
+        correct += pred.eq(target.data.view_as(pred)).cpu().sum()
+        
+    loss /= len(test_loader.dataset)
+        
+    print('\nAverage Val Loss: {:.4f}, Val Accuracy: {}/{} ({:.3f}%)\n'.format(
+        loss, correct, len(test_loader.dataset),
+        100. * correct / len(test_loader.dataset)))
+
+def make_predictions():
+    model.eval()
+    test_preds = torch.LongTensor()
+    
+    for i, data in test_loader:
+        data = data.unsqueeze(1)
+        
+        if torch.cuda.is_available():
+            data = data.cuda()
+            
+        output = model(data)
+        
+        preds = output.cpu().data.max(1, keepdim=True)[1]
+        test_preds = torch.cat((test_preds, preds), dim=0)
+        
+    return test_preds
 
 '''moved main code'''
 def testInput(first, last):
