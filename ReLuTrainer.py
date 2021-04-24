@@ -5,6 +5,9 @@ from torchvision import datasets, transforms
 import torch.nn.functional as F
 import torch
 import time
+from PIL import Image, ImageOps
+import canvasFile
+import numpy
 
 global First
 global Last
@@ -63,6 +66,28 @@ model.to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.5)
 
+def preprocess (image):
+    saved_image = Image.open('saved_canvas.png')
+    saved_image_invert = ImageOps.invert(saved_image)
+
+    '''Crop the image'''
+    cropped_image = saved_image_invert.getbbox()
+    if cropped_image:
+        saved_image_invert = saved_image_invert.crop(cropped_image)
+    '''Resize image'''
+    saved_image_invert.resize((20,20), resample=1)
+    '''Add padding'''
+    final_image = ImageOps.expand(saved_image_invert, 4)
+    '''Convert to greyscale'''
+    numpy_image = numpy.asarray(final_image)
+    rgb_weights = [0.2989, 0.5870, 0.1140]
+    numpy_image = numpy.dot(numpy_image[...,:3], rgb_weights)
+
+    # final_image = Image.fromarray(numpy_image, 'L')
+    # final_image.save('saved_canvas.png')
+
+    return numpy_image
+    
 
 def train(epoch):
     global percentage
@@ -131,18 +156,13 @@ def evaluate():
 
 def make_predictions():
     model.eval()
-    test_preds = torch.LongTensor()
     
-    for i, data in test_loader:
-        data = data.unsqueeze(1)
-        
-        if torch.cuda.is_available():
-            data = data.cuda()
+    preprocess(data)
             
-        output = model(data)
-        
-        preds = output.cpu().data.max(1, keepdim=True)[1]
-        test_preds = torch.cat((test_preds, preds), dim=0)
+    output = model(data)
+    
+    preds = output.cpu().data.max(1, keepdim=True)[1]
+    test_preds = torch.cat((test_preds, preds), dim=0)
         
     return test_preds
 
