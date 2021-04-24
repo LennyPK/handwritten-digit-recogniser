@@ -2,9 +2,9 @@ import sys
 from main_window import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-#from ReLuTrainer import *
+from ReLuTrainer import *
 #from test_trainer import *
-from sklearn_trainer import *
+#from sklearn_trainer import *
 
 '''This window is for when File->Train is clicked'''
 
@@ -29,13 +29,13 @@ class trainModelWindow(QWidget):
 
         # self.timer.timeout.connect(self.handleTimer)
         '''Slider to choose number of epoch's'''
-        self.epochSlider = QSlider(Qt.Horizontal, self)
-        self.epochSlider.setGeometry(30, 40, 200, 30)
-        self.epochSlider.setRange(2, 20)
-        self.epochSlider.valueChanged[int].connect(self.updateSliderLabel)
-        self.sliderLabel = QLabel('2', self)
-        self.sliderLabel.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
-        self.sliderLabel.setMinimumWidth(80)
+        # self.epochSlider = QSlider(Qt.Horizontal, self)
+        # self.epochSlider.setGeometry(30, 40, 200, 30)
+        # self.epochSlider.setRange(2, 20)
+        # self.epochSlider.valueChanged[int].connect(self.updateSliderLabel)
+        # self.sliderLabel = QLabel('2', self)
+        # self.sliderLabel.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
+        # self.sliderLabel.setMinimumWidth(80)
 
         self.pbar.show() 
 
@@ -92,9 +92,12 @@ class Worker(QRunnable):
 
     @pyqtSlot()
     def run(self):
-        # conv_model = Net()
-        # train_model(2, conv_model)
-        trainModel()
+        model = Net()
+        train_model(2, model)
+        #trainModel()
+
+if __name__ == '__main__':
+    print(train_gui)
 
 # Maybe change this to worker and the other one above to ThreadSignals or WorkerSignals
 # class ThreadSignals(QObject):

@@ -59,8 +59,6 @@ class Net(nn.Module):
         return x
 
 
-
-    
 def train_model(num_epoch, conv_model):
     conv_model.train()
 
@@ -111,10 +109,6 @@ def evaluate(data_loader):
         loss, correct, len(data_loader.dataset),
         100. * correct / len(data_loader.dataset)))
 
-
-
-
-
 def make_predictions(data_loader):
     conv_model.eval()
     test_preds = torch.LongTensor()
@@ -133,8 +127,8 @@ def make_predictions(data_loader):
     return test_preds
 
 
-#if __name__ == '__main__':
-#freeze_support()
+if __name__ == '__main__':
+    print(test_trainer)
 
 input_folder_path = "mnist_data/"
 train_df = pd.read_csv("mnist_train.csv")

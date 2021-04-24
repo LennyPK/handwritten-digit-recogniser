@@ -4,7 +4,8 @@ from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt, QTimer
 from canvasFile import CanvasModel
-from sklearn_trainer import *
+from ReLuTrainer import *
+#from sklearn_trainer import * 
 
 '''HomeUI is the window that shows up when we run the code'''
 class HomeUI(QWidget):
@@ -62,6 +63,7 @@ class ModelUI(QWidget):
         ranBtn = QPushButton(" &Random")
         modBtn = QPushButton(" &Model")
         recBtn = QPushButton(" &Recognise")
+        recBtn.clicked.connect(make_predictions)
 
         btnBox = QVBoxLayout()
         btnBox.addWidget(clearBtn)

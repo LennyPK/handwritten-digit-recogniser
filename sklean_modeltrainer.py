@@ -13,6 +13,9 @@ def trainModel():
     trainImages = train_df.drop('label', 1)
 
     model = nn.MLPClassifier(verbose=True, max_iter=100)
+    '''unused model'''
+    #model = svm.SVC()
+    
     model.fit(trainImages, trainLabels)
 
     return model
@@ -22,7 +25,7 @@ def predictWithModel(model, image):
     ''' 
     models needs to be an sklearn model
     image needs to be flattened - reshape
-    
+
     '''
 
     return model.predict(image)
