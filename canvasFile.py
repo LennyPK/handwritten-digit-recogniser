@@ -3,16 +3,16 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-class Canvas_Model(QLabel):
+class CanvasModel(QLabel):
     canvas = None
     last_x = None
     last_y = None
 
     def __init__(self):
         super().__init__()
-        self.setup_UI()
+        self.setupUI()
         
-    def setup_UI(self):
+    def setupUI(self):
         
 
         self.canvas = QPixmap(600,600)
@@ -29,7 +29,7 @@ class Canvas_Model(QLabel):
         self.setPixmap(self.canvas)
         self.setAutoFillBackground(True)
         
-    def mouse_Move_Event(self, e):
+    def mouseMoveEvent(self, e):
         if self.last_x is None: # First event.
             self.last_x = e.x()
             self.last_y = e.y()
@@ -44,16 +44,16 @@ class Canvas_Model(QLabel):
 
         
 
-    def mouse_Release_Event(self, e):
+    def mouseReleaseEvent(self, e):
         self.last_x = None
         self.last_y = None
 
-    def paint_Event(self, e):
+    def paintEvent(self, e):
         painter = QPainter(self)
         painter.drawPixmap(self.rect(), self.canvas)
         painter.end()
 
-    def clear_Canvas(self):
+    def clearCanvas(self):
         self.canvas.fill(Qt.white)
         self.update()
 
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     widg = QWidget()
     hbox = QHBoxLayout()
-    label = canvas_Model()
+    label = canvasModel()
     hbox.addWidget(label)
     widg.setLayout(hbox)
     widg.show()
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     #     self.last_x, self.last_y = None, None
 
     # '''Drawing on the Canvas'''
-    # def mouse_Move_Event(self, e):
+    # def mouseMoveEvent(self, e):
     #     if self.last_x is None: # First event.
     #         self.last_x = e.x()
     #         self.last_y = e.y()
@@ -98,17 +98,17 @@ if __name__ == '__main__':
     #     self.last_x = e.x()
     #     self.last_y = e.y()
 
-    # def mouse_Release_Event(self, e):
+    # def mouseReleaseEvent(self, e):
     #     self.last_x = None
     #     self.last_y = None
 
-    # def paint_Event(self, e):
+    # def paintEvent(self, e):
     #     painter = QPainter(self)
     #     painter.drawPixmap(self.rect(), self.canvas)
     #     painter.end()
 
     # '''NOT WORKING'''
-    # def clear_Canvas(self):
+    # def clearCanvas(self):
     #     # print("henlo")
     #     self.canvas.fill(Qt.white)
     #     # self.label.update()
