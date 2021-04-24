@@ -70,7 +70,7 @@ class trainModelWindow(QWidget):
         if percentage >= 100  or trainStatus():
             self.timer.stop()
             self.results = QLabel("Finished Training Model")
-            self.pbar.setValue(100)
+            self.pbar.setValue(99)
             return
         self.pbar.setValue(int(percentage))
 
