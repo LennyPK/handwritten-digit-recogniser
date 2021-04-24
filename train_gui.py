@@ -2,8 +2,9 @@ import sys
 from main_window import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from ReLuTrainer import *
+#from ReLuTrainer import *
 #from test_trainer import *
+from sklearn_trainer import *
 
 '''This window is for when File->Train is clicked'''
 
@@ -55,23 +56,23 @@ class trainModelWindow(QWidget):
         # gridLayout.addWidget(self.epochSlider, 1, 0)
         # gridLayout.addWidget(self.sliderLabel, 1, 1)
         # gridLayout.addWidget(self.cancelTrain, 1, 0)
-        gridLayout.addWidget(self.pbar, 2, 0)
+        #gridLayout.addWidget(self.pbar, 2, 0)
 
         self.setLayout(gridLayout)
 
-    def updateSliderLabel(self, value):
-        print(value)
-        self.sliderLabel.setText(str(value))
-        # self.worker.lastEpochNum = value
+    # def updateSliderLabel(self, value):
+    #     print(value)
+    #     self.sliderLabel.setText(str(value))
+    #     # self.worker.lastEpochNum = value
 
-    def timerEvent(self, e):
-        percentage = displayPercentage()
-        if percentage >= 100  or trainStatus():
-            self.timer.stop()
-            self.results = QLabel("Finished Training Model")
-            self.pbar.setValue(99)
-            return
-        self.pbar.setValue(int(percentage))
+    # def timerEvent(self, e):
+    #     percentage = displayPercentage()
+    #     if percentage >= 100  or trainStatus():
+    #         self.timer.stop()
+    #         self.results = QLabel("Finished Training Model")
+    #         self.pbar.setValue(99)
+    #         return
+    #     self.pbar.setValue(int(percentage))
 
     def doAction(self):
         if self.timer.isActive():
@@ -93,7 +94,7 @@ class Worker(QRunnable):
     def run(self):
         # conv_model = Net()
         # train_model(2, conv_model)
-        testInput(1,2)
+        trainModel()
 
 # Maybe change this to worker and the other one above to ThreadSignals or WorkerSignals
 # class ThreadSignals(QObject):

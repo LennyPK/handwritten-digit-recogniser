@@ -1,9 +1,10 @@
-from train_gui import*
+from train_gui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt, QTimer
 from canvasFile import CanvasModel
+from sklearn_trainer import *
 
 '''HomeUI is the window that shows up when we run the code'''
 class HomeUI(QWidget):
