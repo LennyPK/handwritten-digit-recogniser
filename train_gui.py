@@ -95,7 +95,6 @@ class Worker(QRunnable):
 
     @pyqtSlot()
     def run(self):
-        print('hi')
         # testInput(1, self.lastEpochNum)
         testInput(1, 12)
 
