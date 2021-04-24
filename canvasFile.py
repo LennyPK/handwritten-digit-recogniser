@@ -57,6 +57,8 @@ class CanvasModel(QLabel):
         self.canvas.fill(Qt.white)
         self.update()
 
+    def save_canvas(self):
+        self.canvas.save('saved_canvas.png')
     
 if __name__ == '__main__':
     app = QApplication(sys.argv)

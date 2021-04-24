@@ -63,7 +63,7 @@ class ModelUI(QWidget):
         ranBtn = QPushButton(" &Random")
         modBtn = QPushButton(" &Model")
         recBtn = QPushButton(" &Recognise")
-        recBtn.clicked.connect(make_predictions)
+        recBtn.clicked.connect(self.save_image)
 
         btnBox = QVBoxLayout()
         btnBox.addWidget(clearBtn)
@@ -80,6 +80,11 @@ class ModelUI(QWidget):
         groupBox = QGroupBox('Predictions')
 
         return groupBox        
+        
+    #when recognise btn pressed, save image first        
+    def save_image(self):
+        self.label.save_canvas()
+        make_predictions()
 
 '''ImageUI is the window to display the test images'''
 class ImageUI(QWidget):
