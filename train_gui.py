@@ -65,14 +65,14 @@ class trainModelWindow(QWidget):
     #     self.sliderLabel.setText(str(value))
     #     # self.worker.lastEpochNum = value
 
-    # def timerEvent(self, e):
-    #     percentage = displayPercentage()
-    #     if percentage >= 100  or trainStatus():
-    #         self.timer.stop()
-    #         self.results = QLabel("Finished Training Model")
-    #         self.pbar.setValue(99)
-    #         return
-    #     self.pbar.setValue(int(percentage))
+    def timerEvent(self, e):
+        percentage = displayPercentage()
+        if percentage >= 100  or trainStatus():
+            self.timer.stop()
+            self.results = QLabel("Finished Training Model")
+            self.pbar.setValue(99)
+            return
+        self.pbar.setValue(int(percentage))
 
     def doAction(self):
         if self.timer.isActive():
@@ -93,7 +93,7 @@ class Worker(QRunnable):
     @pyqtSlot()
     def run(self):
         model = Net()
-        train_model(2, model)
+        testInput(1,2)
         #trainModel()
 
 if __name__ == '__main__':
