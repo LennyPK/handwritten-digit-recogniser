@@ -33,7 +33,7 @@ class Model_UI(QWidget):
 
         self.grid = QGridLayout()
 
-        self.message = QLabel("To Use Painter Simultaneously, Relaunch Analyser")
+        self.message = QLabel("To Use Painter Simultaneously, Relaunch Analyser by going to Home")
         self.grid.addWidget(self.message, 1, 0)
 
         '''adding canvas'''
@@ -110,14 +110,16 @@ class Main_Window(QMainWindow):
         self.move(win_info.topLeft())
 
         '''Drop-down menus'''
+        home_action = QAction('Home',self)
+        home_action.setShortcut('Ctrl+1')
+        home_action.triggered.connect(self.start_Home_UI)
+
         train_action = QAction('Train Model', self)
         train_action.setShortcut('Ctrl+T')
-        train_action.setStatusTip('Train Model')
         train_action.triggered.connect(self.show_train_window)
 
         quit_action = QAction('Exit', self)
         quit_action.setShortcut('Ctrl+Q')
-        quit_action.setStatusTip('Quit application')
         quit_action.triggered.connect(qApp.quit)
 
         open_analyser_action = QAction('Open Analyser', self)
@@ -129,6 +131,7 @@ class Main_Window(QMainWindow):
         menu_bar = self.menuBar()
         '''File menu_bar (train model, quit)'''
         file_menu = menu_bar.addMenu('&File')
+        file_menu.addAction(home_action)
         file_menu.addAction(train_action)
         file_menu.addAction(quit_action)
         '''View menu_bar (open analyser, view testing images)'''
