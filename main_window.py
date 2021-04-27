@@ -5,7 +5,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt, QTimer
 from canvas_file import *
 
-
 '''Home_UI is the window that shows up when we run the code'''
 class Home_UI(QWidget):
     def __init__(self):
@@ -21,7 +20,6 @@ class Home_UI(QWidget):
         self.label.setFont(QFont('Cambria', 80))
         self.label.setWordWrap(True)
         self.setLayout(self.layout)
-
 
 '''Model_UI is the window that is used when dealing with the drawing canvas'''
 class Model_UI(QWidget):
@@ -47,7 +45,6 @@ class Model_UI(QWidget):
         '''connecting buttons'''
         clear_button = QPushButton(" &Clear")
         clear_button.clicked.connect(self.label.clear_canvas)
-        
 
         self.grid.addWidget(self.final_group(), 1, 1)
         self.grid.addWidget(self.label,0,1)
@@ -99,7 +96,7 @@ class Image_UI(QWidget):
         self.image_label.setPixmap(self.test_image)
         self.grid.addWidget(self.image_label, 0, 0)
         self.setLayout(self.grid) 
-
+        
 
 class Main_Window(QMainWindow):
     def __init__(self, parent=None):
