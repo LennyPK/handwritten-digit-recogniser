@@ -1,19 +1,17 @@
-from train_gui import *
+from train_gui import*
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt, QTimer
-from canvasFile import CanvasModel
-from ReLuTrainer import *
-#from sklearn_trainer import * 
+from canvas_file import *
 
-'''HomeUI is the window that shows up when we run the code'''
-class HomeUI(QWidget):
+'''Home_UI is the window that shows up when we run the code'''
+class Home_UI(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUI()
+        self.setup_UI()
 
-    def setupUI(self, parent=None):
+    def setup_UI(self, parent=None):
         '''Text on the Home Window'''
         self.layout = QGridLayout()
         self.label = QLabel("Handwritten\nDigit Analyser")
@@ -24,154 +22,154 @@ class HomeUI(QWidget):
         self.setLayout(self.layout)
 
 
-'''ModelUI is the window that is used when dealing with the drawing canvas'''
-class ModelUI(QWidget):
+'''Model_UI is the window that is used when dealing with the drawing canvas'''
+class Model_UI(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUI()
+        self.setup_UI()
 
-    '''setupUI() is used to place and set up the group boxes used in ModelUI'''
-    def setupUI(self, parent=None):
+    '''setup_UI() is used to place and set up the group boxes used in Model_UI'''
+    def setup_UI(self, parent=None):
 
         self.grid = QGridLayout()
 
-        self.label = CanvasModel()
+        self.message = QLabel("To Use Painter Simultaneously, Relaunch Analyser by going to Home")
+        self.grid.addWidget(self.message, 1, 0)
+
+        '''adding canvas'''
+        self.label = Canvas_Model()
         self.label.setFixedSize(QSize(600, 600))
         self.grid.addWidget(self.label, 0,0)
-        self.grid.addWidget(self.btnGroup(), 0,1)
 
-        clearBtn = QPushButton(" &Clear")
-        clearBtn.clicked.connect(self.label.clearCanvas)
-        self.grid.addWidget(self.finalGroup(), 1, 1)
+        self.grid.addWidget(self.button_group(), 0,1)
+
+        '''connecting buttons'''
+        clear_button = QPushButton(" &Clear")
+        clear_button.clicked.connect(self.label.clear_canvas)
+        
+
+        self.grid.addWidget(self.final_group(), 1, 1)
         self.grid.addWidget(self.label,0,1)
         self.setLayout(self.grid)
 
-        '''centering the window'''
-        WinInfo = self.frameGeometry()
-        MonitorInfo = QDesktopWidget().availableGeometry().center()
-        WinInfo.moveCenter(MonitorInfo)
-        self.move(WinInfo.topLeft())
-
+    '''buttons for operating the canvas'''
+    def button_group(self):
+        group_box = QGroupBox('Buttons Group')
         
-    def btnGroup(self):
-        groupBox = QGroupBox('Buttons Group')
-        
-        # Make buttons
-        clearBtn = QPushButton(" &Clear")
-        clearBtn.clicked.connect(self.label.clearCanvas)
+        clear_button = QPushButton(" &Clear")
+        clear_button.clicked.connect(self.label.clear_canvas)
 
-        ranBtn = QPushButton(" &Random")
-        modBtn = QPushButton(" &Model")
-        recBtn = QPushButton(" &Recognise")
-        recBtn.clicked.connect(make_predictions)
+        random_button = QPushButton(" &Random")
+        recognise_button = QPushButton(" &Recognise")
 
-        btnBox = QVBoxLayout()
-        btnBox.addWidget(clearBtn)
-        btnBox.addWidget(ranBtn)
-        btnBox.addWidget(modBtn)
-        btnBox.addWidget(recBtn)
+        button_box = QVBoxLayout()
+        button_box.addWidget(clear_button)
+        button_box.addWidget(random_button)
+        button_box.addWidget(recognise_button)
 
-        groupBox.setLayout(btnBox)
+        group_box.setLayout(button_box)
 
-        return groupBox
+        return group_box
 
     '''Placeholding box at the moment'''
-    def finalGroup(self):
-        groupBox = QGroupBox('Predictions')
+    def final_group(self):
+        group_box = QGroupBox('Predictions')
 
-        return groupBox        
+        return group_box        
 
-'''ImageUI is the window to display the test images'''
-class ImageUI(QWidget):
+'''Image_UI is the window to display the test images'''
+class Image_UI(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUI()
+        self.setup_UI()
 
-    def setupUI(self, parent=None):
+    def setup_UI(self, parent=None):
         self.grid = QGridLayout()
-        self.imageLabel = QLabel()
+        self.image_label = QLabel()
         self.test_image = QPixmap('img_9.png')
-        self.imageLabel.setPixmap(self.test_image)
-        self.grid.addWidget(self.imageLabel, 0, 0)
+        self.image_label.setPixmap(self.test_image)
+        self.grid.addWidget(self.image_label, 0, 0)
         self.setLayout(self.grid) 
 
 
-class MainWindow(QMainWindow):
+class Main_Window(QMainWindow):
     def __init__(self, parent=None):
-        super(MainWindow,self).__init__()
-        self.trainWin = None
+        super(Main_Window,self).__init__()
+        self.train_win = None
 
         self.setWindowIcon(QIcon('img_9.png'))
 
-        #grid
         grid = QGridLayout()
         self.setLayout(grid)
         self.setGeometry(300, 300, 1000, 800)
 
-        # centering the window
-        WinInfo = self.frameGeometry()
-        MonitorInfo = QDesktopWidget().availableGeometry().center()
-        WinInfo.moveCenter(MonitorInfo)
-        self.move(WinInfo.topLeft())
+        '''centering the window'''
+        win_info = self.frameGeometry()
+        monitor_info = QDesktopWidget().availableGeometry().center()
+        win_info.moveCenter(monitor_info)
+        self.move(win_info.topLeft())
 
-        # Actions
-        trainAction = QAction('Train Model', self)
-        trainAction.setShortcut('Ctrl+T')
-        trainAction.setStatusTip('Train Model')
-        trainAction.triggered.connect(self.showTrainWindow)
+        '''Drop-down menus'''
+        home_action = QAction('Home',self)
+        home_action.setShortcut('Ctrl+1')
+        home_action.triggered.connect(self.start_Home_UI)
 
-        quitAction = QAction('Exit', self)
-        quitAction.setShortcut('Ctrl+Q')
-        quitAction.setStatusTip('Quit application')
-        quitAction.triggered.connect(qApp.quit)
+        train_action = QAction('Train Model', self)
+        train_action.setShortcut('Ctrl+T')
+        train_action.triggered.connect(self.show_train_window)
 
-        openAnalyserAction = QAction('Open Analyser', self)
-        openAnalyserAction.triggered.connect(self.startModelUI)
+        quit_action = QAction('Exit', self)
+        quit_action.setShortcut('Ctrl+Q')
+        quit_action.triggered.connect(qApp.quit)
 
-        viewTestAction = QAction('View Testing Images', self)
-        viewTestAction.triggered.connect(self.startImageUI)
+        open_analyser_action = QAction('Open Analyser', self)
+        open_analyser_action.triggered.connect(self.start_Module_UI)
 
-        menubar = self.menuBar()
-        '''File menubar (train model, quit)'''
-        filemenu = menubar.addMenu('&File')
-        filemenu.addAction(trainAction)
-        filemenu.addAction(quitAction)
-        '''View menubar (open analyser, view testing images)'''
-        viewmenu = menubar.addMenu('&View')
-        viewmenu.addAction(openAnalyserAction)        
-        viewmenu.addAction(viewTestAction)
+        view_test_action = QAction('View Testing Images', self)
+        view_test_action.triggered.connect(self.start_Image_UI)
 
-        self.startHomeUI()
+        menu_bar = self.menuBar()
+        '''File menu_bar (train model, quit)'''
+        file_menu = menu_bar.addMenu('&File')
+        file_menu.addAction(home_action)
+        file_menu.addAction(train_action)
+        file_menu.addAction(quit_action)
+        '''View menu_bar (open analyser, view testing images)'''
+        view_menu = menu_bar.addMenu('&View')
+        view_menu.addAction(open_analyser_action)        
+        view_menu.addAction(view_test_action)
 
-    def startHomeUI(self):
-        self.Home = HomeUI()
+        self.start_Home_UI()
+
+    def start_Home_UI(self):
+        self.Home = Home_UI()
         self.setWindowTitle("Handwritten Digit Recongizition")
         self.setCentralWidget(self.Home)
         self.show()
 
-    def startModelUI(self):
-        self.Model = ModelUI()
+    def start_Module_UI(self):
+        self.Model = Model_UI()
         self.setWindowTitle("Modelling Handwriting Analysis")
         self.setCentralWidget(self.Model)
         self.show()
         
 
-    def startImageUI(self):
-        self.Image = ImageUI()
+    def start_Image_UI(self):
+        self.Image = Image_UI()
         self.setWindowTitle("Testing Images")
         self.setCentralWidget(self.Image)
         self.show()
 
-    #When 'Train Model' is clicked
-    def showTrainWindow(self, checked):
-        if self.trainWin is None:
-            self.trainWin = trainModelWindow()
-            self.trainWin.show()
+    '''when train model is clicked'''
+    def show_train_window(self, checked):
+        if self.train_win is None:
+            self.train_win = Train_Model_Window()
+            self.train_win.show()
         else:
-            self.trainWin.close()
-            self.trainWin = None
+            self.train_win.close()
+            self.train_win = None
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = MainWindow()
+    ex = Main_Window()
     sys.exit(app.exec_())

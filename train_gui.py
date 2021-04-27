@@ -2,130 +2,111 @@ import sys
 from main_window import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from ReLuTrainer import *
-#from test_trainer import *
-#from sklearn_trainer import *
+from ReLu_trainer import *
+from worker_thread import *
 
-'''This window is for when File->Train is clicked'''
-
-class trainModelWindow(QWidget):
-    lastEpochNum = 2
+'''This window is for when File -> Train is clicked'''
+class Train_Model_Window(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.initUI()
+        self.init_UI()
+        '''setting up threadpool'''
         self.threadpool = QThreadPool()
 
-    def initUI(self):
-        self.setWindowTitle('Handwriting Training')
-        self.show()
+    def init_UI(self):
 
+        self.setWindowTitle('Model Training')
+        self.show()
+        
+        self.message = QLabel("Select a Model to start training")
+        self.message.setAlignment(QtCore.Qt.AlignCenter)
+        self.message.setFont(QFont('Cambria', 20))
+
+
+        '''initialising progress bar'''
         self.pbar = QProgressBar(self)
         self.pbar.setGeometry(30,40,500,25)
         self.pbar.setValue(0)
         
         self.timer = QBasicTimer()
-        # self.step = displayPercentage()            
-
-        # self.timer.timeout.connect(self.handleTimer)
-        '''Slider to choose number of epoch's'''
-        # self.epochSlider = QSlider(Qt.Horizontal, self)
-        # self.epochSlider.setGeometry(30, 40, 200, 30)
-        # self.epochSlider.setRange(2, 20)
-        # self.epochSlider.valueChanged[int].connect(self.updateSliderLabel)
-        # self.sliderLabel = QLabel('2', self)
-        # self.sliderLabel.setAlignment(Qt.AlignCenter | Qt.AlignVCenter)
-        # self.sliderLabel.setMinimumWidth(80)
 
         self.pbar.show() 
 
-        self.trainBtn = QPushButton('&Train',self)
-        self.trainBtn.clicked.connect(self.doAction)
-        self.trainBtn.clicked.connect(self.workerThread)
-        self.trainBtn.show()
+        grid_layout = QtWidgets.QGridLayout()
+        grid_layout.addWidget(self.message, 0, 0)
+        grid_layout.addWidget(self.button_group(), 1, 0)
+        grid_layout.addWidget(self.pbar, 2, 0)
 
-        self.results = QLabel("")
+        self.setLayout(grid_layout)
+
+    '''buttons to select different models to be trained'''
+    def button_group(self):
+        group_box = QGroupBox('Models')
         
-        # self.cancelTrain = QPushButton('&Cancel Training', self)
-        # self.cancelTrain.clicked.connect(stopTraining)
-        # self.cancelTrain.show()
+        self.train_button_1 = QPushButton('&Model 1 (5 Epochs)\nLow Accuracy',self)
+        self.train_button_1.clicked.connect(self.do_action)
+        self.train_button_1.clicked.connect(self.model_1_thread)
+        self.train_button_1.show()
 
-        gridLayout = QtWidgets.QGridLayout()
-        gridLayout.addWidget(self.trainBtn, 0, 0, Qt.AlignLeft)
-        gridLayout.addWidget(self.results, 0, 1, Qt.AlignRight)
-        # gridLayout.addWidget(self.epochSlider, 1, 0)
-        # gridLayout.addWidget(self.sliderLabel, 1, 1)
-        # gridLayout.addWidget(self.cancelTrain, 1, 0)
-        #gridLayout.addWidget(self.pbar, 2, 0)
+        self.train_button_2 = QPushButton('&Model 2 (10 Epochs)\nHigher Accuracy',self)
+        self.train_button_2.clicked.connect(self.do_action)
+        self.train_button_2.clicked.connect(self.model_2_thread)
+        self.train_button_2.show()
 
-        self.setLayout(gridLayout)
+        self.train_button_3 = QPushButton('&Model 1 (15 Epochs)\nRecommended',self)
+        self.train_button_3.clicked.connect(self.do_action)
+        self.train_button_3.clicked.connect(self.model_3_thread)
+        self.train_button_3.show()
 
-    # def updateSliderLabel(self, value):
-    #     print(value)
-    #     self.sliderLabel.setText(str(value))
-    #     # self.worker.lastEpochNum = value
+        self.train_button_4 = QPushButton('&Model 1 (20 Epochs)\nHighest Accuracy',self)
+        self.train_button_4.clicked.connect(self.do_action)
+        self.train_button_4.clicked.connect(self.model_4_thread)
+        self.train_button_4.show()
 
-    # def timerEvent(self, e):
-    #     percentage = displayPercentage()
-    #     if percentage >= 100  or trainStatus():
-    #         self.timer.stop()
-    #         self.results = QLabel("Finished Training Model")
-    #         self.pbar.setValue(99)
-    #         return
-    #     self.pbar.setValue(int(percentage))
+        buttn_box = QHBoxLayout()
+        buttn_box.addWidget(self.train_button_1)
+        buttn_box.addWidget(self.train_button_2)
+        buttn_box.addWidget(self.train_button_3)
+        buttn_box.addWidget(self.train_button_4)
 
-    def doAction(self):
+        group_box.setLayout(buttn_box)
+
+        return group_box
+
+    '''timer to update progress bar'''
+    def timerEvent(self, e):
+        percentage = display_percentage()
+        '''checks if training is finished and updates progress bar to 100%'''
+        if percentage >= 100  or train_status():
+            self.timer.stop()
+            self.results = QLabel("Finished Training Model")
+            self.pbar.setValue(100)
+            return
+        '''otherwise'''
+        self.pbar.setValue(int(percentage))
+
+    '''timer'''
+    def do_action(self):
         if self.timer.isActive():
             self.timer.stop()
         else:
             self.timer.start(10, self)
     
-    def workerThread(self):
-        worker = Worker()
-        # self.worker_signals = ThreadSignals()
-        # self.worker = TestWorker(testInput(1, self.lastEpochNum))
+    '''multithreaded functions'''
+    def model_1_thread(self):
+        worker = Worker_1()
         self.threadpool.start(worker)
 
-'''making another thread'''
-class Worker(QRunnable):
-    lastEpochNum = 2
+    def model_2_thread(self):
+        worker = Worker_2()
+        self.threadpool.start(worker)
 
-    @pyqtSlot()
-    def run(self):
-        model = Net()
-        train_model(2, model)
-        #trainModel()
+    def model_3_thread(self):
+        worker = Worker_3()
+        self.threadpool.start(worker)
 
-if __name__ == '__main__':
-    print(train_gui)
-
-# Maybe change this to worker and the other one above to ThreadSignals or WorkerSignals
-# class ThreadSignals(QObject):
-#     model_progress = pyqtSignal()
-#     finished = pyqtSignal()
-
-# class TestWorker(QRunnable):
-
-#     def __init__(self, fn, *args, **kwargs):
-#         super(TestWorker, self).__init__()
-#         self.fn = fn
-#         self.args = args
-#         self.kwargs = kwargs
-#         self.signals = ThreadSignals()
-
-#         self.kwargs['cbk_progress'] = self.signals.model_progress
-
-#     @pyqtSlot()
-#     def run(self):
-
-#         try:
-#             result = self.fn(*self.args, **self.kwargs)
-        
-#         except:
-#             print("didnt work you shit")
-#         else:
-#             print("meme")
-#         finally:
-#             self.signals.finished.emit()
-
+    def model_4_thread(self):
+        worker = Worker_4()
+        self.threadpool.start(worker)
 
