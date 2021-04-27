@@ -18,11 +18,13 @@ class Train_Model_Window(QWidget):
 
         self.setWindowTitle('Model Training')
         self.show()
-
+        
         self.message = QLabel("Select a Model to start training")
         self.message.setAlignment(QtCore.Qt.AlignCenter)
         self.message.setFont(QFont('Cambria', 20))
 
+
+        '''initialising progress bar'''
         self.pbar = QProgressBar(self)
         self.pbar.setGeometry(30,40,500,25)
         self.pbar.setValue(0)
@@ -38,6 +40,7 @@ class Train_Model_Window(QWidget):
 
         self.setLayout(grid_layout)
 
+    '''buttons to select different models to be trained'''
     def button_group(self):
         group_box = QGroupBox('Models')
         
@@ -71,21 +74,26 @@ class Train_Model_Window(QWidget):
 
         return group_box
 
+    '''timer to update progress bar'''
     def timerEvent(self, e):
         percentage = display_percentage()
+        '''checks if training is finished and updates progress bar to 100%'''
         if percentage >= 100  or train_status():
             self.timer.stop()
             self.results = QLabel("Finished Training Model")
             self.pbar.setValue(100)
             return
+        '''otherwise'''
         self.pbar.setValue(int(percentage))
 
+    '''timer'''
     def do_action(self):
         if self.timer.isActive():
             self.timer.stop()
         else:
             self.timer.start(10, self)
     
+    '''multithreaded functions'''
     def model_1_thread(self):
         worker = Worker_1()
         self.threadpool.start(worker)

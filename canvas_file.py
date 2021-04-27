@@ -51,7 +51,6 @@ class Canvas_Model(QLabel):
         painter.end()
 
     '''created a function to clear the canvas'''
-def clear_canvas(self):
-    # self.canvas.fill(Qt.white)
-    # self.update()
-    Canvas_Model()
+    def clear_canvas(self):
+        self.canvas.fill(Qt.white)
+        self.update()

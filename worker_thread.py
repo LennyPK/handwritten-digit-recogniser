@@ -1,7 +1,7 @@
 from PyQt5.QtCore import *
 from ReLu_trainer import *
 
-'''making other threads, for different epochs, different "models"'''
+'''making other threads, for different epochs, different "models" '''
 class Worker_1(QRunnable):
 
     @pyqtSlot()
