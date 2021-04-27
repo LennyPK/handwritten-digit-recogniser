@@ -2,7 +2,7 @@ import sys
 from main_window import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
-from ReLuTrainer import *
+from ReLu_trainer import *
 from worker_thread import *
 
 '''This window is for when File -> Train is clicked'''
@@ -72,8 +72,8 @@ class Train_Model_Window(QWidget):
         return group_box
 
     def timerEvent(self, e):
-        percentage = displayPercentage()
-        if percentage >= 100  or trainStatus():
+        percentage = display_percentage()
+        if percentage >= 100  or train_status():
             self.timer.stop()
             self.results = QLabel("Finished Training Model")
             self.pbar.setValue(100)

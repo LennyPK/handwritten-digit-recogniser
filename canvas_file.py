@@ -10,20 +10,17 @@ class Canvas_Model(QLabel):
 
     def __init__(self):
         super().__init__()
-        self.setupUI()
+        self.setup_UI()
         
-    def setupUI(self):
+    def setup_UI(self):
         
-
         self.canvas = QPixmap(600,600)
         self.painter = QPainter(self.canvas)
 
         self.pen = QPen(Qt.black)
-        self.pen.setWidth(10)
+        self.pen.setWidth(35)
         
         self.painter.setPen(self.pen)
-
-        
 
         self.canvas.fill(QColor('#ffffff'))
         self.setPixmap(self.canvas)
@@ -41,8 +38,6 @@ class Canvas_Model(QLabel):
 
         self.last_x = e.x()
         self.last_y = e.y()
-
-        
 
     def mouseReleaseEvent(self, e):
         self.last_x = None
