@@ -161,22 +161,3 @@ def trainStatus():
         return False
     else:
         return True
-
-if __name__ == '__main__':
-    # percentage = 0
-    testInput(1, 2)
-    print(trainStatus())
-    """
-    since = time.time()
-    for epoch in range(1, 10):
-        epoch_start = time.time()
-        train(epoch)
-        m, s = divmod(time.time() - epoch_start, 60)
-        print(f'Training time: {m:.0f}m {s:.0f}s')
-        test()
-        m, s = divmod(time.time() - epoch_start, 60)
-        print(f'Testing time: {m:.0f}m {s:.0f}s')
-
-    m, s = divmod(time.time() - since, 60)
-    print(f'Total Time: {m:.0f}m {s:.0f}s\nModel was trained on {device}!')
-    """
