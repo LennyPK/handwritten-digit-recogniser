@@ -23,7 +23,6 @@ class Train_Model_Window(QWidget):
         self.message.setAlignment(QtCore.Qt.AlignCenter)
         self.message.setFont(QFont('Cambria', 20))
 
-
         '''initialising progress bar'''
         self.pbar = QProgressBar(self)
         self.pbar.setGeometry(30,40,500,25)
@@ -40,13 +39,14 @@ class Train_Model_Window(QWidget):
 
         self.setLayout(grid_layout)
 
-    '''buttons to select different models to be trained'''
+    '''buttons to select different "models" to be trained'''
     def button_group(self):
         group_box = QGroupBox('Models')
         
         self.train_button_1 = QPushButton('&Model 1 (5 Epochs)\nLow Accuracy',self)
         self.train_button_1.clicked.connect(self.do_action)
         self.train_button_1.clicked.connect(self.model_1_thread)
+
         self.train_button_1.show()
 
         self.train_button_2 = QPushButton('&Model 2 (10 Epochs)\nHigher Accuracy',self)

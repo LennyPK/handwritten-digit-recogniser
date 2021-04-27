@@ -192,7 +192,7 @@ class Main_Window(QMainWindow):
 
     def start_Home_UI(self):
         self.Home = Home_UI()
-        self.setWindowTitle("Handwritten Digit Recongizition")
+        self.setWindowTitle("Handwritten Digit Recognition")
         self.setCentralWidget(self.Home)
         self.show()
 
