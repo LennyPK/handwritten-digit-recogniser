@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 
-class CanvasModel(QLabel):
+class Canvas_Model(QLabel):
     canvas = None
     last_x = None
     last_y = None
@@ -54,17 +54,6 @@ class CanvasModel(QLabel):
         painter.drawPixmap(self.rect(), self.canvas)
         painter.end()
 
-    def clearCanvas(self):
+    def clear_canvas(self):
         self.canvas.fill(Qt.white)
         self.update()
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    widg = QWidget()
-    hbox = QHBoxLayout()
-    label = CanvasModel()
-    hbox.addWidget(label)
-    widg.setLayout(hbox)
-    widg.show()
-    sys.exit(app.exec_())
