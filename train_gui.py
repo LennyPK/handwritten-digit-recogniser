@@ -6,7 +6,7 @@ from ReLuTrainer import *
 from worker_thread import *
 
 '''This window is for when File -> Train is clicked'''
-class trainModelWindow(QWidget):
+class Train_Model_Window(QWidget):
 
     def __init__(self):
         super().__init__()
