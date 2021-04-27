@@ -5,6 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt, QTimer
 from canvas_file import *
 
+
 '''Home_UI is the window that shows up when we run the code'''
 class Home_UI(QWidget):
     def __init__(self):
@@ -60,7 +61,10 @@ class Model_UI(QWidget):
         clear_button.clicked.connect(self.label.clear_canvas)
 
         random_button = QPushButton(" &Random")
+
         recognise_button = QPushButton(" &Recognise")
+        recognise_button.clicked.connect(self.save_image)
+
 
         button_box = QVBoxLayout()
         button_box.addWidget(clear_button)
@@ -75,7 +79,12 @@ class Model_UI(QWidget):
     def final_group(self):
         group_box = QGroupBox('Predictions')
 
-        return group_box        
+        return group_box   
+
+    '''when recognise btn pressed, save image first'''
+    def save_image(self):
+        self.label.save_canvas()
+        make_predictions()     
 
 '''Image_UI is the window to display the test images'''
 class Image_UI(QWidget):
