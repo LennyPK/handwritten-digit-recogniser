@@ -91,19 +91,62 @@ class Image_UI(QWidget):
 
     def setup_UI(self, parent=None):
         self.grid = QGridLayout()
-        self.image_label = QLabel()
-        self.test_image = QPixmap('img_9.png')
-        self.image_label.setPixmap(self.test_image)
-        self.grid.addWidget(self.image_label, 0, 0)
+        self.grid.addWidget(self.image_set(), 0, 0)        
         self.setLayout(self.grid) 
-        
+    
+    '''placeholder images'''
+    def image_set(self,parent = None):
+        group_box = QGroupBox('Images')
+
+        self.image_label1 = QLabel()
+        self.test_image = QPixmap('MNIST_img.png')
+        self.image_label1.setPixmap(self.test_image)
+
+        self.image_label2 = QLabel()
+        self.image_label2.setPixmap(self.test_image)
+
+        self.image_label3 = QLabel()
+        self.image_label3.setPixmap(self.test_image)
+
+        self.image_label4 = QLabel()
+        self.image_label4.setPixmap(self.test_image)
+
+        self.image_label5 = QLabel()
+        self.image_label5.setPixmap(self.test_image)
+
+        self.image_label6 = QLabel()
+        self.image_label6.setPixmap(self.test_image)
+
+        self.image_label7 = QLabel()
+        self.image_label7.setPixmap(self.test_image)
+
+        self.image_label8 = QLabel()
+        self.image_label8.setPixmap(self.test_image)
+
+        self.image_label9 = QLabel()
+        self.image_label9.setPixmap(self.test_image)
+
+        self.grid = QGridLayout()
+        self.grid.addWidget(self.image_label1, 0, 0)
+        self.grid.addWidget(self.image_label2, 0, 1)
+        self.grid.addWidget(self.image_label3, 0, 2)
+        self.grid.addWidget(self.image_label4, 1, 0)
+        self.grid.addWidget(self.image_label5, 1, 1)
+        self.grid.addWidget(self.image_label6, 1, 2)
+        self.grid.addWidget(self.image_label7, 2, 0)
+        self.grid.addWidget(self.image_label8, 2, 1)
+        self.grid.addWidget(self.image_label9, 2, 2)
+
+        group_box.setLayout(self.grid)
+        return group_box
+
 
 class Main_Window(QMainWindow):
     def __init__(self, parent=None):
         super(Main_Window,self).__init__()
         self.train_win = None
 
-        self.setWindowIcon(QIcon('img_9.png'))
+        self.setWindowIcon(QIcon('logo.png'))
 
         grid = QGridLayout()
         self.setLayout(grid)
