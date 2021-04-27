@@ -33,13 +33,16 @@ class ModelUI(QWidget):
 
         self.grid = QGridLayout()
 
+        self.message = QLabel("To Use Painter Simultaneously, Relaunch Analyser")
         self.label = CanvasModel()
         self.label.setFixedSize(QSize(600, 600))
+        self.grid.addWidget(self.message, 1, 0)
         self.grid.addWidget(self.label, 0,0)
         self.grid.addWidget(self.btnGroup(), 0,1)
 
         clearBtn = QPushButton(" &Clear")
         clearBtn.clicked.connect(self.label.clearCanvas)
+
         self.grid.addWidget(self.finalGroup(), 1, 1)
         self.grid.addWidget(self.label,0,1)
         self.setLayout(self.grid)
