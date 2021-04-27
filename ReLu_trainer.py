@@ -85,6 +85,27 @@ def train(epoch):
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.item()))
 
+def preprocess (image):
+    saved_image = Image.open('saved_canvas.png')
+    saved_image_invert = ImageOps.invert(saved_image)
+
+    '''Crop the image'''
+    cropped_image = saved_image_invert.getbbox()
+    if cropped_image:
+        saved_image_invert = saved_image_invert.crop(cropped_image)
+    '''Resize image'''
+    saved_image_invert.resize((20,20), resample=1)
+    '''Add padding'''
+    final_image = ImageOps.expand(saved_image_invert, 4)
+    '''Convert to greyscale'''
+    numpy_image = numpy.asarray(final_image)
+    rgb_weights = [0.2989, 0.5870, 0.1140]
+    numpy_image = numpy.dot(numpy_image[...,:3], rgb_weights)
+
+    # final_image = Image.fromarray(numpy_image, 'L')
+    # final_image.save('saved_canvas.png')
+
+    return numpy_image
 
 def test():
     model.eval()
