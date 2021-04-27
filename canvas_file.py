@@ -54,3 +54,6 @@ class Canvas_Model(QLabel):
     def clear_canvas(self):
         self.canvas.fill(Qt.white)
         self.update()
+        
+    def save_canvas(self):
+        self.canvas.save('saved_canvas.png')
