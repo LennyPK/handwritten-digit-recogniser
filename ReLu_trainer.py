@@ -5,6 +5,9 @@ from torchvision import datasets, transforms
 import torch.nn.functional as F
 import torch
 import time
+from PIL import Image, ImageOps
+import canvas_file
+import numpy
 
 global First
 global Last
@@ -17,7 +20,7 @@ global correct
 # Training settings
 batch_size = 64
 device = 'cuda' if cuda.is_available() else 'cpu'
-print(f'Training MNIST Model on {device}\n{"=" * 44}')
+# print(f'Training MNIST Model on {device}\n{"=" * 44}')
 
 # MNIST Dataset
 train_dataset = datasets.MNIST(root='mnist_data/',
@@ -85,28 +88,6 @@ def train(epoch):
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader), loss.item()))
 
-def preprocess (image):
-    saved_image = Image.open('saved_canvas.png')
-    saved_image_invert = ImageOps.invert(saved_image)
-
-    '''Crop the image'''
-    cropped_image = saved_image_invert.getbbox()
-    if cropped_image:
-        saved_image_invert = saved_image_invert.crop(cropped_image)
-    '''Resize image'''
-    saved_image_invert.resize((20,20), resample=1)
-    '''Add padding'''
-    final_image = ImageOps.expand(saved_image_invert, 4)
-    '''Convert to greyscale'''
-    numpy_image = numpy.asarray(final_image)
-    rgb_weights = [0.2989, 0.5870, 0.1140]
-    numpy_image = numpy.dot(numpy_image[...,:3], rgb_weights)
-
-    # final_image = Image.fromarray(numpy_image, 'L')
-    # final_image.save('saved_canvas.png')
-
-    return numpy_image
-
 def test():
     model.eval()
     test_loss = 0
@@ -150,22 +131,57 @@ def evaluate():
         loss, correct, len(test_loader.dataset),
         100. * correct / len(test_loader.dataset)))
 
+# def make_predictions():
+#     model.eval()
+#     test_preds = torch.LongTensor()
+    
+#     for i, data in test_loader:
+#         data = data.unsqueeze(1)
+        
+#         if torch.cuda.is_available():
+#             data = data.cuda()
+            
+#         output = model(data)
+        
+#         preds = output.cpu().data.max(1, keepdim=True)[1]
+#         test_preds = torch.cat((test_preds, preds), dim=0)
+        
+#     return test_preds
+
 def make_predictions():
     model.eval()
-    test_preds = torch.LongTensor()
-    
-    for i, data in test_loader:
-        data = data.unsqueeze(1)
-        
-        if torch.cuda.is_available():
-            data = data.cuda()
-            
-        output = model(data)
-        
-        preds = output.cpu().data.max(1, keepdim=True)[1]
-        test_preds = torch.cat((test_preds, preds), dim=0)
-        
+
+    preprocess(data)
+
+    output = model(data)
+
+    preds = output.cpu().data.max(1, keepdim=True)[1]
+    test_preds = torch.cat((test_preds, preds), dim=0)
+
     return test_preds
+
+def preprocess(image):
+        saved_image = Image.open('saved_canvas.png')
+        saved_image_invert = ImageOps.invert(saved_image)
+
+        '''Crop the image'''
+        cropped_image = saved_image_invert.getbbox()
+        
+        if cropped_image:
+            saved_image_invert = saved_image_invert.crop(cropped_image)
+        '''Resize image'''
+        saved_image_invert.resize((20,20), resample=1)
+        '''Add padding'''
+        final_image = ImageOps.expand(saved_image_invert, 4)
+        '''Convert to greyscale'''
+        numpy_image = numpy.asarray(final_image)
+        rgb_weights = [0.2989, 0.5870, 0.1140]
+        numpy_image = numpy.dot(numpy_image[...,:3], rgb_weights)
+
+        # final_image = Image.fromarray(numpy_image, 'L')
+        final_image.save('saved_canvas.png')
+
+        return numpy_image
 
 '''specifying number of epochs to be inputted'''
 def test_input(first, last):
