@@ -12,6 +12,7 @@ class Canvas_Model(QLabel):
         super().__init__()
         self.setup_UI()
         
+    '''initialising QPixmap'''
     def setup_UI(self):
         
         self.canvas = QPixmap(600,600)
@@ -49,6 +50,8 @@ class Canvas_Model(QLabel):
         painter.drawPixmap(self.rect(), self.canvas)
         painter.end()
 
-    def clear_canvas(self):
-        self.canvas.fill(Qt.white)
-        self.update()
+    '''created a function to clear the canvas'''
+def clear_canvas(self):
+    # self.canvas.fill(Qt.white)
+    # self.update()
+    Canvas_Model()

@@ -103,7 +103,7 @@ def test():
           f'({100. * correct / len(test_loader.dataset):.0f}%)')
 
 
-'''specifying number of epochs to b inputted'''
+'''specifying number of epochs to be inputted'''
 def test_input(first, last):
     global First
     global Last
@@ -137,14 +137,16 @@ def train_progress(batch, epoch):
     global last_epoch
     global total_batches
     
+    '''stores all the batches'''
     if epoch > last_epoch:
         last_epoch = epoch
         total_batches.append(batch)
     else:
+        '''new epoch'''
         if total_batches[epoch - 1] < batch:
             total_batches[epoch - 1] = batch
     
-
+'''displays total percentage'''
 def display_percentage():
     global First
     global Last
@@ -154,6 +156,7 @@ def display_percentage():
         completed += total
     return (100. * completed / (len(train_loader.dataset) * (Last - First)))
 
+'''checks if training has been finished or not'''
 def train_status():
     global train_finish
     if train_finish == 0:
