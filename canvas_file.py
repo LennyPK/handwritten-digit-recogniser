@@ -43,7 +43,8 @@ class Canvas_Model(QLabel):
     def mouseReleaseEvent(self, e):
         self.last_x = None
         self.last_y = None
-
+        self.painter.end()
+        
     def paintEvent(self, e):
         painter = QPainter(self)
         painter.drawPixmap(self.rect(), self.canvas)
