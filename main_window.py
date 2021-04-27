@@ -19,7 +19,7 @@ class HomeUI(QWidget):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setFont(QFont('Cambria', 80))
         self.label.setWordWrap(True)
-        self.setLayout(self.layout) 
+        self.setLayout(self.layout)
 
 
 '''ModelUI is the window that is used when dealing with the drawing canvas'''
@@ -169,6 +169,6 @@ class MainWindow(QMainWindow):
             self.trainWin = None
 
 if __name__ == '__main__':
-   app = QApplication(sys.argv)
-   ex = MainWindow()
-   sys.exit(app.exec_())
+    app = QApplication(sys.argv)
+    ex = MainWindow()
+    sys.exit(app.exec_())
