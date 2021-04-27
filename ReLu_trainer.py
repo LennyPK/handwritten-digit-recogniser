@@ -7,9 +7,9 @@ import time
 
 global First
 global Last
-global lastEpoch
-global totalBatches
-global trainFinish
+global last_epoch
+global total_batches
+global train_finish
 global test_loss
 global correct
 
@@ -74,10 +74,10 @@ def train(epoch):
         loss.backward()
         optimizer.step()
 
-        ''' '''
+        '''arbitrary if statement, just making sure the functions runs'''
         if batch_idx:
-            trainProgress(batch_idx * len(data), epoch)
-            displayPercentage()
+            train_progress(batch_idx * len(data), epoch)
+            display_percentage()
 
         if batch_idx % 10 == 0:
             print('Train Epoch: {} | Batch Status: {}/{} ({:.0f}%) | Loss: {:.6f}'.format(
@@ -103,21 +103,20 @@ def test():
           f'({100. * correct / len(test_loader.dataset):.0f}%)')
 
 
-'''moved main code'''
-def testInput(first, last):
+'''specifying number of epochs to b inputted'''
+def test_input(first, last):
     global First
     global Last
-    global lastEpoch
-    global totalBatches
-    global trainFinish
+    global last_epoch
+    global total_batches
+    global train_finish
 
     First = first
     Last = last
-    totalBatches = []
-    lastEpoch = 0
-    trainFinish = 0
+    total_batches = []
+    last_epoch = 0
+    train_finish = 0
 
-    ''''''
     since = time.time()
     for epoch in range(first, last):
         epoch_start = time.time()
@@ -131,33 +130,33 @@ def testInput(first, last):
     m, s = divmod(time.time() - since, 60)
     
     print(f'Total Time: {m:.0f}m {s:.0f}s\nModel was trained on {device}!')
-    trainFinish = 1
+    train_finish = 1
     
 '''kees track of how far through each epoch the AI has trained through'''
-def trainProgress(batch, epoch):
-    global lastEpoch
-    global totalBatches
+def train_progress(batch, epoch):
+    global last_epoch
+    global total_batches
     
-    if epoch > lastEpoch:
-        lastEpoch = epoch
-        totalBatches.append(batch)
+    if epoch > last_epoch:
+        last_epoch = epoch
+        total_batches.append(batch)
     else:
-        if totalBatches[epoch - 1] < batch:
-            totalBatches[epoch - 1] = batch
+        if total_batches[epoch - 1] < batch:
+            total_batches[epoch - 1] = batch
     
 
-def displayPercentage():
+def display_percentage():
     global First
     global Last
-    global totalBatches
+    global total_batches
     completed = 0
-    for total in totalBatches:
+    for total in total_batches:
         completed += total
     return (100. * completed / (len(train_loader.dataset) * (Last - First)))
 
-def trainStatus():
-    global trainFinish
-    if trainFinish == 0:
+def train_status():
+    global train_finish
+    if train_finish == 0:
         return False
     else:
         return True

@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt, QTimer
-from canvasFile import *
+from canvas_file import *
 
 '''Home_UI is the window that shows up when we run the code'''
 class Home_UI(QWidget):
@@ -157,7 +157,7 @@ class Main_Window(QMainWindow):
         self.setCentralWidget(self.Image)
         self.show()
 
-    #When 'Train Model' is clicked
+    '''when train model is clicked'''
     def show_train_window(self, checked):
         if self.train_win is None:
             self.train_win = Train_Model_Window()
