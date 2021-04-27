@@ -10,13 +10,18 @@ class trainModelWindow(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.initUI()
+        self.init_UI()
         '''setting up threadpool'''
         self.threadpool = QThreadPool()
 
-    def initUI(self):
-        self.setWindowTitle('Handwriting Training')
+    def init_UI(self):
+
+        self.setWindowTitle('Model Training')
         self.show()
+
+        self.message = QLabel("Select a Model to start training")
+        self.message.setAlignment(QtCore.Qt.AlignCenter)
+        self.message.setFont(QFont('Cambria', 20))
 
         self.pbar = QProgressBar(self)
         self.pbar.setGeometry(30,40,500,25)
@@ -27,43 +32,44 @@ class trainModelWindow(QWidget):
         self.pbar.show() 
 
         grid_layout = QtWidgets.QGridLayout()
-        grid_layout.addWidget(self.button_group(), 0, 0)
-        grid_layout.addWidget(self.pbar, 3, 0)
+        grid_layout.addWidget(self.message, 0, 0)
+        grid_layout.addWidget(self.button_group(), 1, 0)
+        grid_layout.addWidget(self.pbar, 2, 0)
 
         self.setLayout(grid_layout)
 
     def button_group(self):
-        groupBox = QGroupBox('Models')
+        group_box = QGroupBox('Models')
         
-        self.train_button_1 = QPushButton('&Model 1\nLow Accuracy',self)
+        self.train_button_1 = QPushButton('&Model 1 (5 Epochs)\nLow Accuracy',self)
         self.train_button_1.clicked.connect(self.do_action)
         self.train_button_1.clicked.connect(self.model_1_thread)
         self.train_button_1.show()
 
-        self.train_button_2 = QPushButton('&Model 2\nHigher Accuracy',self)
+        self.train_button_2 = QPushButton('&Model 2 (10 Epochs)\nHigher Accuracy',self)
         self.train_button_2.clicked.connect(self.do_action)
         self.train_button_2.clicked.connect(self.model_2_thread)
         self.train_button_2.show()
 
-        self.train_button_3 = QPushButton('&Model 1\nRecommended',self)
+        self.train_button_3 = QPushButton('&Model 1 (15 Epochs)\nRecommended',self)
         self.train_button_3.clicked.connect(self.do_action)
         self.train_button_3.clicked.connect(self.model_3_thread)
         self.train_button_3.show()
 
-        self.train_button_4 = QPushButton('&Model 1\nHighest Accuracy',self)
+        self.train_button_4 = QPushButton('&Model 1 (20 Epochs)\nHighest Accuracy',self)
         self.train_button_4.clicked.connect(self.do_action)
         self.train_button_4.clicked.connect(self.model_4_thread)
         self.train_button_4.show()
 
-        btnBox = QHBoxLayout()
-        btnBox.addWidget(self.train_button_1)
-        btnBox.addWidget(self.train_button_2)
-        btnBox.addWidget(self.train_button_3)
-        btnBox.addWidget(self.train_button_4)
+        buttn_box = QHBoxLayout()
+        buttn_box.addWidget(self.train_button_1)
+        buttn_box.addWidget(self.train_button_2)
+        buttn_box.addWidget(self.train_button_3)
+        buttn_box.addWidget(self.train_button_4)
 
-        groupBox.setLayout(btnBox)
+        group_box.setLayout(buttn_box)
 
-        return groupBox
+        return group_box
 
     def timerEvent(self, e):
         percentage = displayPercentage()

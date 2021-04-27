@@ -3,15 +3,15 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt, QTimer
-from canvasFile import CanvasModel
+from canvasFile import *
 
-'''HomeUI is the window that shows up when we run the code'''
-class HomeUI(QWidget):
+'''Home_UI is the window that shows up when we run the code'''
+class Home_UI(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUI()
+        self.setup_UI()
 
-    def setupUI(self, parent=None):
+    def setup_UI(self, parent=None):
         '''Text on the Home Window'''
         self.layout = QGridLayout()
         self.label = QLabel("Handwritten\nDigit Analyser")
@@ -22,26 +22,28 @@ class HomeUI(QWidget):
         self.setLayout(self.layout)
 
 
-'''ModelUI is the window that is used when dealing with the drawing canvas'''
-class ModelUI(QWidget):
+'''Model_UI is the window that is used when dealing with the drawing canvas'''
+class Model_UI(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUI()
+        self.setup_UI()
 
-    '''setupUI() is used to place and set up the group boxes used in ModelUI'''
-    def setupUI(self, parent=None):
+    '''setup_UI() is used to place and set up the group boxes used in Model_UI'''
+    def setup_UI(self, parent=None):
 
         self.grid = QGridLayout()
 
         self.message = QLabel("To Use Painter Simultaneously, Relaunch Analyser")
-        self.label = CanvasModel()
-        self.label.setFixedSize(QSize(600, 600))
         self.grid.addWidget(self.message, 1, 0)
-        self.grid.addWidget(self.label, 0,0)
-        self.grid.addWidget(self.btnGroup(), 0,1)
 
-        clearBtn = QPushButton(" &Clear")
-        clearBtn.clicked.connect(self.label.clearCanvas)
+        self.label = Canvas_Model()
+        self.label.setFixedSize(QSize(600, 600))
+        self.grid.addWidget(self.label, 0,0)
+
+        self.grid.addWidget(self.button_group(), 0,1)
+
+        clear_button = QPushButton(" &Clear")
+        clear_button.clicked.connect(self.label.clear_canvas)
 
         self.grid.addWidget(self.finalGroup(), 1, 1)
         self.grid.addWidget(self.label,0,1)
@@ -54,22 +56,22 @@ class ModelUI(QWidget):
         self.move(WinInfo.topLeft())
 
         
-    def btnGroup(self):
+    def button_group(self):
         groupBox = QGroupBox('Buttons Group')
         
         # Make buttons
-        clearBtn = QPushButton(" &Clear")
-        clearBtn.clicked.connect(self.label.clearCanvas)
+        clear_button = QPushButton(" &Clear")
+        clear_button.clicked.connect(self.label.clear_canvas)
 
-        ranBtn = QPushButton(" &Random")
-        modBtn = QPushButton(" &Model")
-        recBtn = QPushButton(" &Recognise")
+        random_button = QPushButton(" &Random")
+        model_button = QPushButton(" &Model")
+        recognise_button = QPushButton(" &Recognise")
 
         btnBox = QVBoxLayout()
-        btnBox.addWidget(clearBtn)
-        btnBox.addWidget(ranBtn)
-        btnBox.addWidget(modBtn)
-        btnBox.addWidget(recBtn)
+        btnBox.addWidget(clear_button)
+        btnBox.addWidget(random_button)
+        btnBox.addWidget(model_button)
+        btnBox.addWidget(recognise_button)
 
         groupBox.setLayout(btnBox)
 
@@ -85,9 +87,9 @@ class ModelUI(QWidget):
 class ImageUI(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUI()
+        self.setup_UI()
 
-    def setupUI(self, parent=None):
+    def setup_UI(self, parent=None):
         self.grid = QGridLayout()
         self.imageLabel = QLabel()
         self.test_image = QPixmap('img_9.png')
@@ -144,13 +146,13 @@ class MainWindow(QMainWindow):
         self.startHomeUI()
 
     def startHomeUI(self):
-        self.Home = HomeUI()
+        self.Home = Home_UI()
         self.setWindowTitle("Handwritten Digit Recongizition")
         self.setCentralWidget(self.Home)
         self.show()
 
     def startModelUI(self):
-        self.Model = ModelUI()
+        self.Model = Model_UI()
         self.setWindowTitle("Modelling Handwriting Analysis")
         self.setCentralWidget(self.Model)
         self.show()
