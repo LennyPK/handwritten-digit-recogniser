@@ -86,7 +86,7 @@ class Train_Model_Window(QWidget):
         '''otherwise'''
         self.pbar.setValue(int(percentage))
 
-    '''timer'''
+    '''timer for progress bar'''
     def do_action(self):
         if self.timer.isActive():
             self.timer.stop()

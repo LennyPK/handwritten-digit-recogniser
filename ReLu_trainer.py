@@ -1,13 +1,22 @@
 from __future__ import print_function
+import sys
+import torch
 from torch import nn, optim, cuda
 from torch.utils import data
+from torch.autograd import Variable
 from torchvision import datasets, transforms
 import torch.nn.functional as F
-import torch
 import time
+import tensorflow as tf
+import numpy
+import random
 from PIL import Image, ImageOps
 import canvas_file
-import numpy
+
+# from __future__ import print_function
+
+# import matplotlib
+# import matplotlib.pyplot as plt
 
 global First
 global Last
@@ -213,14 +222,17 @@ def train_status():
 def make_predictions():
     model.eval()
 
-    preprocess(data)
+    image = preprocess(data)
+    convert_to_tensor = transforms.Compose([
+        transforms.ToTensor(),
+    ])
+    image_tensor = convert_to_tensor(image)
+    
+    output = model(image_tensor)
 
-    output = model(data)
-
-    preds = output.cpu().data.max(1, keepdim=True)[1]
-    test_preds = torch.cat((test_preds, preds), dim=0)
-
-    return test_preds
+    probabilities = torch.nn.functional.softmax(output[0], dim = 0)
+    probabilities = probabilities.detach().numpy()
+    return(probabilities)
 
 def preprocess(image):
         saved_image = Image.open('saved_canvas.png')
@@ -232,16 +244,18 @@ def preprocess(image):
         if cropped_image:
             saved_image_invert = saved_image_invert.crop(cropped_image)
         '''Resize image'''
-        saved_image_invert.resize((20,20), resample=1)
+        centered_image = saved_image_invert.resize((20,20))
         '''Add padding'''
-        final_image = ImageOps.expand(saved_image_invert, 4)
+        final_image = Image.new(centered_image.mode, (28, 28), (0, 0, 0))
+        final_image.paste(centered_image, (4, 4))
+
+        final_image.save('saved_canvas.png')
         '''Convert to greyscale'''
         numpy_image = numpy.asarray(final_image)
         rgb_weights = [0.2989, 0.5870, 0.1140]
         numpy_image = numpy.dot(numpy_image[...,:3], rgb_weights)
 
-        # final_image = Image.fromarray(numpy_image, 'L')
-        final_image.save('saved_canvas.png')
-
-        return numpy_image
+        final_image = Image.fromarray(numpy_image, 'L')
+        
+        return final_image
 
