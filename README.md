@@ -12,11 +12,11 @@ torch:          PyTorch is an open source machine learning library based on the 
 torchvision:    This library is part of the PyTorch project. PyTorch is an open source machine learning framework.
                 The torchvision package consists of popular datasets, model architectures, and common image transformations for computer vision.
                 
-tensor:         TensorFlow is an end-to-end open source platform for machine learning. 
+TensorFlow:     TensorFlow is an end-to-end open source platform for machine learning. 
                 It has a comprehensive, flexible ecosystem of tools, libraries and community resources
                 that lets researchers push the state-of-the-art in ML and developers easily build and deploy ML powered applications.
 
-numpy:          NumPy is a Python library used for working with arrays.
+NumPy:          NumPy is a Python library used for working with arrays.
 
 Pillow:         Pillow is the friendly PIL fork by Alex Clark and Contributors. PIL is the Python Imaging Library by Fredrik Lundh and Contributors.
 
@@ -40,7 +40,7 @@ In order to create the development environment launch "Anaconda Prompy (minicond
 
 We need to install the above mentioned libraries in order to run our program:
 
-    pip install PyQt5 torch torchvision
+    pip install PyQt5 torch torchvision tensorflow
 
 ## Usage
 
