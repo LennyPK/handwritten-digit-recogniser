@@ -202,23 +202,6 @@ def train_status():
     else:
         return True
 
-# def make_predictions():
-#     model.eval()
-#     test_preds = torch.LongTensor()
-    
-#     for i, data in test_loader:
-#         data = data.unsqueeze(1)
-        
-#         if torch.cuda.is_available():
-#             data = data.cuda()
-            
-#         output = model(data)
-        
-#         preds = output.cpu().data.max(1, keepdim=True)[1]
-#         test_preds = torch.cat((test_preds, preds), dim=0)
-        
-#     return test_preds
-
 def make_predictions():
     model.eval()
 
@@ -235,27 +218,29 @@ def make_predictions():
     return(probabilities)
 
 def preprocess(image):
-        saved_image = Image.open('saved_canvas.png')
-        saved_image_invert = ImageOps.invert(saved_image)
+    saved_image = Image.open('saved_canvas.png')
+    saved_image_invert = ImageOps.invert(saved_image)
 
-        '''Crop the image'''
-        cropped_image = saved_image_invert.getbbox()
-        
-        if cropped_image:
-            saved_image_invert = saved_image_invert.crop(cropped_image)
-        '''Resize image'''
-        centered_image = saved_image_invert.resize((20,20))
-        '''Add padding'''
-        final_image = Image.new(centered_image.mode, (28, 28), (0, 0, 0))
-        final_image.paste(centered_image, (4, 4))
+    '''Crop the image'''
+    cropped_image = saved_image_invert.getbbox()
+    
+    if cropped_image:
+        saved_image_invert = saved_image_invert.crop(cropped_image)
+    '''Resize image'''
+    centered_image = saved_image_invert.resize((20,20))
+    '''Add padding'''
+    final_image = Image.new(centered_image.mode, (28, 28), (0, 0, 0))
+    final_image.paste(centered_image, (4, 4))
 
-        final_image.save('saved_canvas.png')
-        '''Convert to greyscale'''
-        numpy_image = numpy.asarray(final_image)
-        rgb_weights = [0.2989, 0.5870, 0.1140]
-        numpy_image = numpy.dot(numpy_image[...,:3], rgb_weights)
+    final_image.save('saved_canvas.png')
+    '''Convert to greyscale'''
+    numpy_image = numpy.asarray(final_image)
+    rgb_weights = [0.2989, 0.5870, 0.1140]
+    numpy_image = numpy.dot(numpy_image[...,:3], rgb_weights)
 
-        final_image = Image.fromarray(numpy_image, 'L')
-        
-        return final_image
+    final_image = Image.fromarray(numpy_image, 'L')
+    
+    return final_image
 
+def get_accuracy():
+    return 100. * correct / len(test_loader.dataset)
