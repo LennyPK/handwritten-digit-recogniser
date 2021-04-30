@@ -1,9 +1,12 @@
-## Handwritten Digit Recognition
-
-# Description
+# Handwritten Digit Recognition
 This is a program which lets the user input a handwritten digit and the AI model will predict what the digit is depending on the accuracy of the chosen model.
 
-# Libraries to Download
+## Description
+<!-- What your application does,
+Why you used the technologies you used,
+Some of the challenges you faced and features you hope to implement in the future. -->
+
+## Libraries to Download
 
 torch:          PyTorch is an open source machine learning library based on the Torch library, 
                 used for applications such as computer vision and natural language processing,       
@@ -42,15 +45,28 @@ We need to install the above mentioned libraries in order to run our program:
 
     pip install PyQt5 torch torchvision tensorflow
 
+Check if the above programs have been installed:
+
+    pip list
+
+Step 2
+https://code.visualstudio.com/
+The recommended IDE to be used would be Visual Studio but other IDEs can be used to the users preference.
+Download Visual Studio Code and follow the on screen prompts to install VS Code
+Install the Python extension by navigation to the Extension tab on the left side
+Open the project folder with the scripts on the workspace and select 'py38' as your Python Interpreter
+
 ## Usage
+Running the program is easy, navigate to the "main_window.py" file and Run without Debugging
 
-```python
-import foobar
+1. To recognize digits on the program follow these steps:
 
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
-```
+Step 1
+Train a Model by navigating >> File >> Train Model, or use Ctrl+T
+Pick a Model of your preference and wait for the model to finish training and the accuracy of your model will be displayed
+
+Step 2
+Navigate >> 
 
 # Versions
 Version 65 - probabilities added
