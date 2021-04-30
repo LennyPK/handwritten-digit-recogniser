@@ -2,9 +2,7 @@
 This is a program which lets the user input a handwritten digit and the AI model will predict what the digit is depending on the accuracy of the chosen model.
 
 ## Description
-<!-- What your application does,
-Why you used the technologies you used,
-Some of the challenges you faced and features you hope to implement in the future. -->
+<!-- What your application does, Why you used the technologies you used, Some of the challenges you faced and features you hope to implement in the future. -->
 
 ## Prerequisites
 
@@ -33,7 +31,7 @@ The requests module allows you to send HTTP requests using Python. The HTTP requ
 
 In order to run the program a python development environment is needed. These are the steps in order to install the recommended setup:
 
-##### Step 1 <br />
+#### Step 1 <br />
 [Miniconda Docs](https://docs.conda.io/en/latest/miniconda.html) <br />
 Download **Python Version 3.8** and follow the on screen prompts to install miniconda <br />
 In order to create the development environment launch `Anaconda Prompt (miniconda3)` and type in the following:
@@ -57,14 +55,14 @@ Check if the above programs have been installed:
 pip list
 ```
 
-##### Step 2 <br />
+#### Step 2 <br />
 [Visual Studio Code](https://code.visualstudio.com/) <br />
 The recommended IDE to be used would be Visual Studio but other IDEs can be used to the users preference. <br />
 Download Visual Studio Code and follow the on screen prompts to install VS Code. <br />
 Install the *Python Extension* by navigation to the *Extension tab* on the left side. <br />
 Open the project folder with the scripts on the workspace and select `py38` as your Python Interpreter. 
 
-## Usage
+## How To
 Running the program is easy, navigate to the `main_window.py` file and ***Run without Debugging***.
 
 1. To recognize digits on the program follow these steps:
@@ -85,9 +83,23 @@ The `Predictions` chart will display the probabilities of the analysed digit. <b
 Navigate to >> `View` >> `View Testing Images`, and the images will be displayed.
 
 ## Credits
+Cynthia Kwok - Made the GUI and Interface
+Pulasthi Lenaduwa - Integrated the AI Models into the GUI
 
+## Acknowledgments
+<!-- add all the supporting sites we used -->
 
 ## Versions
+Version 75 - . <br />
+Version 74 - stylised readme <br />
+Version 73 - . <br />
+Version 72 - readme formatting 
+Version 71 - added usage instructions <br />
+Version 70 - added an accuracy label to training <br />
+Version 69 - Cleaning up the project files … <br />
+Version 68 - . <br />
+Version 67 - Update README.md … <br />
+Version 66 - making readme file <br />
 Version 65 - probabilities added <br />
 Version 64 - . <br />
 Version 63 - added placeholder images <br />
