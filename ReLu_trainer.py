@@ -207,25 +207,14 @@ def train_status():
 
 '''returns number probability'''
 def make_predictions():
-    model.eval()
 
-    image = preprocess()
-
-    '''converts the preprocessed image into a tensor'''
-    convert_to_tensor = transforms.Compose([
-        transforms.ToTensor(),
-    ])
-
-    image_tensor = convert_to_tensor(image)
-    image_tensor = image_tensor.unsqueeze_(0)
-
-    output = model(image_tensor)
+    output = model(preprocess())
 
     '''converting tensor weights into probabilities'''
     probabilities = torch.nn.functional.softmax(output[0], dim = 0)
     probabilities = probabilities.detach().numpy()
 
-    # print(probabilities)
+    print(probabilities)
     return(probabilities)
 
 '''resizes the image to match the image type of the MNIST dataset'''
@@ -245,14 +234,16 @@ def preprocess():
     final_image.paste(centered_image, (4, 4))
 
     final_image.save('saved_canvas.png')
-    # '''Convert to greyscale'''
-    # numpy_image = numpy.asarray(final_image)
-    # rgb_weights = [0.2989, 0.5870, 0.1140]
-    # numpy_image = numpy.dot(numpy_image[...,:3], rgb_weights)
+        
+    '''converts the processed image into a tensor'''
+    tensor_converter = transforms.Compose([
+        transforms.ToTensor(),
+    ])
 
-    # final_image = Image.fromarray(numpy_image, 'L')
+    tensor_of_canvas = tensor_converter(final_image)
+    tensor_of_canvas = tensor_of_canvas.unsqueeze_(0)
     
-    return final_image
+    return tensor_of_canvas
 
 def get_accuracy():
     return (100. * correct / len(test_loader.dataset))
