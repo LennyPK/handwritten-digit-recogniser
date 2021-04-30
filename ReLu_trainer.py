@@ -27,9 +27,9 @@ global test_loss
 global correct
 
 # Training settings
-batch_size = 64
+batch_size = 32
 device = 'cuda' if cuda.is_available() else 'cpu'
-# print(f'Training MNIST Model on {device}\n{"=" * 44}')
+print(f'Training MNIST Model on {device}\n{"=" * 44}')
 
 # MNIST Dataset
 train_dataset = datasets.MNIST(root='mnist_data/',
@@ -202,22 +202,31 @@ def train_status():
     else:
         return True
 
+'''returns number probability'''
 def make_predictions():
     model.eval()
 
-    image = preprocess(data)
+    image = preprocess()
+
+    '''converts the preprocessed image into a tensor'''
     convert_to_tensor = transforms.Compose([
         transforms.ToTensor(),
     ])
-    image_tensor = convert_to_tensor(image)
     
+    image_tensor = convert_to_tensor(image)
+    image_tensor = image_tensor.unsqueeze_(0)
+
     output = model(image_tensor)
 
+    '''converting tensor weights into probabilities'''
     probabilities = torch.nn.functional.softmax(output[0], dim = 0)
     probabilities = probabilities.detach().numpy()
+
+    print(probabilities)
     return(probabilities)
 
-def preprocess(image):
+'''resizes the image to match the image type of the MNIST dataset'''
+def preprocess():
     saved_image = Image.open('saved_canvas.png')
     saved_image_invert = ImageOps.invert(saved_image)
 
@@ -233,12 +242,12 @@ def preprocess(image):
     final_image.paste(centered_image, (4, 4))
 
     final_image.save('saved_canvas.png')
-    '''Convert to greyscale'''
-    numpy_image = numpy.asarray(final_image)
-    rgb_weights = [0.2989, 0.5870, 0.1140]
-    numpy_image = numpy.dot(numpy_image[...,:3], rgb_weights)
+    # '''Convert to greyscale'''
+    # numpy_image = numpy.asarray(final_image)
+    # rgb_weights = [0.2989, 0.5870, 0.1140]
+    # numpy_image = numpy.dot(numpy_image[...,:3], rgb_weights)
 
-    final_image = Image.fromarray(numpy_image, 'L')
+    # final_image = Image.fromarray(numpy_image, 'L')
     
     return final_image
 

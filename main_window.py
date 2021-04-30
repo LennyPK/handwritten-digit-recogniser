@@ -32,7 +32,9 @@ class Model_UI(QWidget):
 
         self.grid = QGridLayout()
 
-        self.message = QLabel("To Use Painter Simultaneously, Relaunch Analyser by going to Home")
+        self.message = QLabel("To Recognize Digit, Train a Model first")
+        self.message.setAlignment(QtCore.Qt.AlignCenter)
+        self.message.setFont(QFont('Segoe', 12))
         self.grid.addWidget(self.message, 1, 0)
 
         '''adding canvas'''
