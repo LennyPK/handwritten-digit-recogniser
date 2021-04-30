@@ -23,6 +23,11 @@ class Train_Model_Window(QWidget):
         self.message.setAlignment(QtCore.Qt.AlignCenter)
         self.message.setFont(QFont('Cambria', 20))
 
+        '''accuracy display'''
+        self.accuracy_label = QLabel("Accuracy:\nN/A ")
+        self.accuracy_label.setAlignment(QtCore.Qt.AlignCenter)
+        self.accuracy_label.setFont(QFont('Cambria', 15))
+
         '''initialising progress bar'''
         self.pbar = QProgressBar(self)
         self.pbar.setGeometry(30,40,500,25)
@@ -35,7 +40,8 @@ class Train_Model_Window(QWidget):
         grid_layout = QtWidgets.QGridLayout()
         grid_layout.addWidget(self.message, 0, 0)
         grid_layout.addWidget(self.button_group(), 1, 0)
-        grid_layout.addWidget(self.pbar, 2, 0)
+        grid_layout.addWidget(self.accuracy_label, 2, 0)
+        grid_layout.addWidget(self.pbar, 3, 0)
 
         self.setLayout(grid_layout)
 
@@ -82,6 +88,8 @@ class Train_Model_Window(QWidget):
             self.timer.stop()
             self.results = QLabel("Finished Training Model")
             self.pbar.setValue(100)
+            '''printing accuracy'''
+            self.accuracy_label.setText(f'Accuracy\n{get_accuracy():.0f}%')
             return
         '''otherwise'''
         self.pbar.setValue(int(percentage))

@@ -32,7 +32,7 @@ class Model_UI(QWidget):
 
         self.grid = QGridLayout()
 
-        self.message = QLabel("To Recognize Digit, Train a Model first")
+        self.message = QLabel("To Recognize Digit, Train a Model First")
         self.message.setAlignment(QtCore.Qt.AlignCenter)
         self.message.setFont(QFont('Segoe', 12))
         self.grid.addWidget(self.message, 1, 0)
@@ -42,24 +42,24 @@ class Model_UI(QWidget):
         self.label.setFixedSize(QSize(600, 600))
         self.grid.addWidget(self.label, 0,0)
 
-        self.grid.addWidget(self.button_group(), 0,1)
+        self.grid.addWidget(self.button_group(), 1, 1)
 
         '''connecting buttons'''
         clear_button = QPushButton(" &Clear")
         clear_button.clicked.connect(self.label.clear_canvas)
 
-        self.grid.addWidget(self.final_group(), 1, 1)
-        self.grid.addWidget(self.label,0,1)
+        self.grid.addWidget(self.final_group(), 0, 1)
+        # self.grid.addWidget(self.label,0,0)
         self.setLayout(self.grid)
 
     '''buttons for operating the canvas'''
     def button_group(self):
-        group_box = QGroupBox('Buttons Group')
+        group_box = QGroupBox('Canvas Operations')
         
         clear_button = QPushButton(" &Clear")
         clear_button.clicked.connect(self.label.clear_canvas)
 
-        random_button = QPushButton(" &Random")
+        # random_button = QPushButton(" &Random")
 
         recognise_button = QPushButton(" &Recognise")
         recognise_button.clicked.connect(self.save_image)
@@ -67,7 +67,7 @@ class Model_UI(QWidget):
 
         button_box = QVBoxLayout()
         button_box.addWidget(clear_button)
-        button_box.addWidget(random_button)
+        # button_box.addWidget(random_button)
         button_box.addWidget(recognise_button)
 
         group_box.setLayout(button_box)

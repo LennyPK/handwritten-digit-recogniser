@@ -25,6 +25,7 @@ global total_batches
 global train_finish
 global test_loss
 global correct
+global accuracy
 
 # Training settings
 batch_size = 32
@@ -99,6 +100,8 @@ def train(epoch):
 
 def test():
     global correct
+    global accuracy
+
     model.eval()
     test_loss = 0
     correct = 0
@@ -114,6 +117,8 @@ def test():
     test_loss /= len(test_loader.dataset)
     print(f'===========================\nTest set: Average loss: {test_loss:.4f}, Accuracy: {correct}/{len(test_loader.dataset)} '
           f'({100. * correct / len(test_loader.dataset):.0f}%)')
+
+    accuracy = (100. * correct / len(test_loader.dataset))
 
 def evaluate():
     model.eval()
@@ -212,7 +217,7 @@ def make_predictions():
     convert_to_tensor = transforms.Compose([
         transforms.ToTensor(),
     ])
-    
+
     image_tensor = convert_to_tensor(image)
     image_tensor = image_tensor.unsqueeze_(0)
 
@@ -252,4 +257,5 @@ def preprocess():
     return final_image
 
 def get_accuracy():
-    return 100. * correct / len(test_loader.dataset)
+    global accuracy
+    return accuracy
