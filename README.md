@@ -33,7 +33,7 @@ The requests module allows you to send HTTP requests using Python. The HTTP requ
 
 In order to run the program a python development environment is needed. These are the steps in order to install the recommended setup:
 
-###### Step 1 <br />
+##### Step 1 <br />
 [Miniconda Docs](https://docs.conda.io/en/latest/miniconda.html) <br />
 Download **Python Version 3.8** and follow the on screen prompts to install miniconda <br />
 In order to create the development environment launch `Anaconda Prompt (miniconda3)` and type in the following:
@@ -57,7 +57,7 @@ Check if the above programs have been installed:
 pip list
 ```
 
-###### Step 2 <br />
+##### Step 2 <br />
 [Visual Studio Code](https://code.visualstudio.com/) <br />
 The recommended IDE to be used would be Visual Studio but other IDEs can be used to the users preference. <br />
 Download Visual Studio Code and follow the on screen prompts to install VS Code. <br />
@@ -69,11 +69,11 @@ Running the program is easy, navigate to the `main_window.py` file and ***Run wi
 
 1. To recognize digits on the program follow these steps:
 
-###### Step 1 <br />
+##### Step 1 <br />
 Train a Model by navigating to >> `File` >> `Train Model`, or use `Ctrl+T`. <br />
 Pick a Model of your preference and wait for the model to finish training and the accuracy of your model will be displayed. 
 
-###### Step 2 <br />
+##### Step 2 <br />
 Draw Digits by navigating to >> `View` >> `Open Analyser`. <br />
 Draw your digit on the canvas. <br />
 `Clear` Button can be used to clear the canvas. <br />
