@@ -89,9 +89,9 @@ Navigate to >> View >> View Testing Images, and the images will be displayed.
 ## Versions
 Version 65 - probabilities added <br />
 Version 64 - . <br />
-Version 63 - added placeholder images
-Version 62 - Merge branch 'master' of https://github.com/COMPSYS-302-2021/project-… …
-Version 61 - .
+Version 63 - added placeholder images _
+Version 62 - Merge branch 'master' of https://github.com/COMPSYS-302-2021/project-… … _
+Version 61 - . _
 Version 60 - logo!
 Version 59 - .
 Version 58 - Merge branch 'master' of https://github.com/COMPSYS-302-2021/project-… …
