@@ -49,7 +49,6 @@ class Model_UI(QWidget):
         clear_button.clicked.connect(self.label.clear_canvas)
 
         self.grid.addWidget(self.final_group(), 0, 1)
-        # self.grid.addWidget(self.label,0,0)
         self.setLayout(self.grid)
 
     '''buttons for operating the canvas'''
@@ -66,9 +65,9 @@ class Model_UI(QWidget):
 
 
         button_box = QVBoxLayout()
+        button_box.addWidget(recognise_button)
         button_box.addWidget(clear_button)
         # button_box.addWidget(random_button)
-        button_box.addWidget(recognise_button)
 
         group_box.setLayout(button_box)
 

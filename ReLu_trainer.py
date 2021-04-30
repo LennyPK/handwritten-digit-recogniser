@@ -25,10 +25,11 @@ global total_batches
 global train_finish
 global test_loss
 global correct
-global accuracy
+
+correct = 0
 
 # Training settings
-batch_size = 32
+batch_size = 64
 device = 'cuda' if cuda.is_available() else 'cpu'
 print(f'Training MNIST Model on {device}\n{"=" * 44}')
 
@@ -91,7 +92,7 @@ def train(epoch):
         '''arbitrary if statement, just making sure the functions runs'''
         if batch_idx:
             train_progress(batch_idx * len(data), epoch)
-            display_percentage()
+            # display_percentage()
 
         if batch_idx % 10 == 0:
             print('Train Epoch: {} | Batch Status: {}/{} ({:.0f}%) | Loss: {:.6f}'.format(
@@ -100,7 +101,6 @@ def train(epoch):
 
 def test():
     global correct
-    global accuracy
 
     model.eval()
     test_loss = 0
@@ -117,8 +117,6 @@ def test():
     test_loss /= len(test_loader.dataset)
     print(f'===========================\nTest set: Average loss: {test_loss:.4f}, Accuracy: {correct}/{len(test_loader.dataset)} '
           f'({100. * correct / len(test_loader.dataset):.0f}%)')
-
-    accuracy = (100. * correct / len(test_loader.dataset))
 
 def evaluate():
     model.eval()
@@ -227,7 +225,7 @@ def make_predictions():
     probabilities = torch.nn.functional.softmax(output[0], dim = 0)
     probabilities = probabilities.detach().numpy()
 
-    print(probabilities)
+    # print(probabilities)
     return(probabilities)
 
 '''resizes the image to match the image type of the MNIST dataset'''
@@ -257,5 +255,4 @@ def preprocess():
     return final_image
 
 def get_accuracy():
-    global accuracy
-    return accuracy
+    return (100. * correct / len(test_loader.dataset))

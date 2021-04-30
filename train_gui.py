@@ -24,7 +24,7 @@ class Train_Model_Window(QWidget):
         self.message.setFont(QFont('Cambria', 20))
 
         '''accuracy display'''
-        self.accuracy_label = QLabel("Accuracy:\nN/A ")
+        self.accuracy_label = QLabel(f'Accuracy\n{get_accuracy():.0f}%')
         self.accuracy_label.setAlignment(QtCore.Qt.AlignCenter)
         self.accuracy_label.setFont(QFont('Cambria', 15))
 
@@ -83,16 +83,21 @@ class Train_Model_Window(QWidget):
     '''timer to update progress bar'''
     def timerEvent(self, e):
         percentage = display_percentage()
+
         '''checks if training is finished and updates progress bar to 100%'''
         if percentage >= 100  or train_status():
             self.timer.stop()
             self.results = QLabel("Finished Training Model")
             self.pbar.setValue(100)
+
             '''printing accuracy'''
             self.accuracy_label.setText(f'Accuracy\n{get_accuracy():.0f}%')
             return
-        '''otherwise'''
+        '''updates progress bar as training progresses'''
         self.pbar.setValue(int(percentage))
+
+        '''printing accuracy'''
+        self.accuracy_label.setText(f'Accuracy\n{get_accuracy():.0f}%')
 
     '''timer for progress bar'''
     def do_action(self):
@@ -117,4 +122,3 @@ class Train_Model_Window(QWidget):
     def model_4_thread(self):
         worker = Worker_4()
         self.threadpool.start(worker)
-
