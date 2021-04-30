@@ -13,6 +13,7 @@ class Train_Model_Window(QWidget):
         self.init_UI()
         '''setting up threadpool'''
         self.threadpool = QThreadPool()
+        self.model_number = 0
 
     def init_UI(self):
 
@@ -52,22 +53,25 @@ class Train_Model_Window(QWidget):
         self.train_button_1 = QPushButton('&Model 1 (5 Epochs)\nLow Accuracy',self)
         self.train_button_1.clicked.connect(self.do_action)
         self.train_button_1.clicked.connect(self.model_1_thread)
-
+        self.train_button_1.clicked.connect(self.disable_buttons)
         self.train_button_1.show()
 
         self.train_button_2 = QPushButton('&Model 2 (10 Epochs)\nHigher Accuracy',self)
         self.train_button_2.clicked.connect(self.do_action)
         self.train_button_2.clicked.connect(self.model_2_thread)
+        self.train_button_2.clicked.connect(self.disable_buttons)
         self.train_button_2.show()
 
         self.train_button_3 = QPushButton('&Model 1 (15 Epochs)\nRecommended',self)
         self.train_button_3.clicked.connect(self.do_action)
         self.train_button_3.clicked.connect(self.model_3_thread)
+        self.train_button_3.clicked.connect(self.disable_buttons)
         self.train_button_3.show()
 
         self.train_button_4 = QPushButton('&Model 1 (20 Epochs)\nHighest Accuracy',self)
         self.train_button_4.clicked.connect(self.do_action)
         self.train_button_4.clicked.connect(self.model_4_thread)
+        self.train_button_4.clicked.connect(self.disable_buttons)
         self.train_button_4.show()
 
         buttn_box = QHBoxLayout()
@@ -87,11 +91,14 @@ class Train_Model_Window(QWidget):
         '''checks if training is finished and updates progress bar to 100%'''
         if percentage >= 100  or train_status():
             self.timer.stop()
-            self.results = QLabel("Finished Training Model")
+            self.message.setText(f"Finished Training Model {self.get_model_number()}")
             self.pbar.setValue(100)
 
             '''printing accuracy'''
             self.accuracy_label.setText(f'Accuracy\n{get_accuracy():.0f}%')
+
+            self.enable_buttons()
+
             return
         '''updates progress bar as training progresses'''
         self.pbar.setValue(int(percentage))
@@ -110,15 +117,34 @@ class Train_Model_Window(QWidget):
     def model_1_thread(self):
         worker = Worker_1()
         self.threadpool.start(worker)
+        self.model_number = 1
 
     def model_2_thread(self):
         worker = Worker_2()
         self.threadpool.start(worker)
+        self.model_number = 2
 
     def model_3_thread(self):
         worker = Worker_3()
         self.threadpool.start(worker)
+        self.model_number = 3
 
     def model_4_thread(self):
         worker = Worker_4()
         self.threadpool.start(worker)
+        self.model_number = 4
+
+    def get_model_number(self):
+        return self.model_number
+
+    def disable_buttons(self):
+        self.train_button_1.setEnabled(False)
+        self.train_button_2.setEnabled(False)
+        self.train_button_3.setEnabled(False)
+        self.train_button_4.setEnabled(False)
+
+    def enable_buttons(self):
+        self.train_button_1.setEnabled(True)
+        self.train_button_2.setEnabled(True)
+        self.train_button_3.setEnabled(True)
+        self.train_button_4.setEnabled(True)
