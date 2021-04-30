@@ -6,7 +6,7 @@ This is a program which lets the user input a handwritten digit and the AI model
 Why you used the technologies you used,
 Some of the challenges you faced and features you hope to implement in the future. -->
 
-## Libraries to Download
+## Prerequisites
 
 torch:          PyTorch is an open source machine learning library based on the Torch library, 
                 used for applications such as computer vision and natural language processing,       
@@ -33,44 +33,62 @@ requests:       The requests module allows you to send HTTP requests using Pytho
 In order to run the program a python development environment is needed. These are the steps in order to install the recommended setup:
 
 Step 1
-https://docs.conda.io/en/latest/miniconda.html
+[Miniconda Docs](https://docs.conda.io/en/latest/miniconda.html)
 Download Python Version 3.8 and follow the on screen prompts to install miniconda
 In order to create the development environment launch "Anaconda Prompy (miniconda3)" and type in the following:
-
-    conda create –n py38 python=3.8
-    y
-    conda activate py38
+```sh
+conda create –n py38 python=3.8
+```
+```sh
+y
+```
+```sh
+conda activate py38
+```
 
 We need to install the above mentioned libraries in order to run our program:
-
-    pip install PyQt5 torch torchvision tensorflow
+```sh
+pip install PyQt5 torch torchvision tensorflow
+```
 
 Check if the above programs have been installed:
-
-    pip list
+```sh
+pip list
+```
 
 Step 2
-https://code.visualstudio.com/
+[Visual Studio Code](https://code.visualstudio.com/)
 The recommended IDE to be used would be Visual Studio but other IDEs can be used to the users preference.
-Download Visual Studio Code and follow the on screen prompts to install VS Code
-Install the Python extension by navigation to the Extension tab on the left side
-Open the project folder with the scripts on the workspace and select 'py38' as your Python Interpreter
+Download Visual Studio Code and follow the on screen prompts to install VS Code.
+Install the Python extension by navigation to the Extension tab on the left side.
+Open the project folder with the scripts on the workspace and select 'py38' as your Python Interpreter.
 
 ## Usage
-Running the program is easy, navigate to the "main_window.py" file and Run without Debugging
+Running the program is easy, navigate to the "main_window.py" file and Run without Debugging.
 
 1. To recognize digits on the program follow these steps:
 
 Step 1
-Train a Model by navigating >> File >> Train Model, or use Ctrl+T
-Pick a Model of your preference and wait for the model to finish training and the accuracy of your model will be displayed
+Train a Model by navigating to >> File >> Train Model, or use Ctrl+T.
+Pick a Model of your preference and wait for the model to finish training and the accuracy of your model will be displayed.
 
 Step 2
-Navigate >> 
+Draw Digits by navigating to >> View >> Open Analyser.
+Draw your digit on the canvas.
+Clear Button can be used to clear the canvas.
+Recognize Button can be used to analyse and get the probabilities of what digit it is.
+The Predictions chart will display the probabilities of the analysed digit.
 
-# Versions
-Version 65 - probabilities added
-Version 64 - .
+2. To view Images from the dataset follow these steps:
+
+Navigate to >> View >> View Testing Images, and the images will be displayed.
+
+## Credits
+
+
+## Versions
+Version 65 - probabilities added <br />
+Version 64 - . <br />
 Version 63 - added placeholder images
 Version 62 - Merge branch 'master' of https://github.com/COMPSYS-302-2021/project-… …
 Version 61 - .
