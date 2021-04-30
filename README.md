@@ -1,6 +1,20 @@
 # Handwritten Digit Recognition
 This is a program which lets the user input a handwritten digit and the AI model will predict what the digit is depending on the accuracy of the chosen model.
 
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#description">Description</a>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#how-to">How To</a></li>
+    <li><a href="#credits">Credits</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+    <li><a href="#version">Version</a></li>
+  </ol>
+</details>
+
 ## Description
 <!-- What your application does, Why you used the technologies you used, Some of the challenges you faced and features you hope to implement in the future. -->
 
@@ -83,7 +97,7 @@ The `Predictions` chart will display the probabilities of the analysed digit. <b
 Navigate to >> `View` >> `View Testing Images`, and the images will be displayed.
 
 ## Credits
-Cynthia Kwok - Made the GUI and Interface
+Cynthia Kwok - Made the GUI and Interface <br />
 Pulasthi Lenaduwa - Integrated the AI Models into the GUI
 
 ## Acknowledgments
