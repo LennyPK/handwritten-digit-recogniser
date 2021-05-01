@@ -208,7 +208,7 @@ def make_predictions():
     output = model(preprocess())
 
     '''converting tensor weights into probabilities'''
-    probabilities = torch.nn.functional.softmax(output[0], dim = 0)
+    probabilities = torch.nn.functional.softmax(output[1], dim = 0)
     probabilities = probabilities.detach().numpy()
 
     print(probabilities)
@@ -238,7 +238,7 @@ def preprocess():
     ])
 
     tensor_of_canvas = tensor_converter(final_image)
-    tensor_of_canvas = tensor_of_canvas.unsqueeze_(0)
+    tensor_of_canvas = tensor_of_canvas.unsqueeze_(1)
     
     return tensor_of_canvas
 
