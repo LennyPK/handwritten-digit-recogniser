@@ -58,7 +58,7 @@ conda activate py38
 
 We need to install the above mentioned libraries in order to run our program:
 ```sh
-pip install PyQt5 torch torchvision
+pip install PyQt5 torch torchvision matplotlib
 ```
 
 Check if the above programs have been installed:
