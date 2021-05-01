@@ -25,20 +25,17 @@ PyTorch is an open source machine learning library based on the Torch library, u
 
 2. [torchvision](https://pytorch.org/vision/stable/index.html)
 This library is part of the PyTorch project. PyTorch is an open source machine learning framework. The torchvision package consists of popular datasets, model architectures, and common image transformations for computer vision.
-                
-3. [TensorFlow](https://www.tensorflow.org/)
-TensorFlow is an end-to-end open source platform for machine learning. It has a comprehensive, flexible ecosystem of tools, libraries and community resources that lets researchers push the state-of-the-art in ML and developers easily build and deploy ML powered applications.
 
-4. [NumPy](https://numpy.org/)
+3. [NumPy](https://numpy.org/)
 NumPy is a Python library used for working with arrays.
 
-5. [Pillow](https://pillow.readthedocs.io/en/stable/)
+4. [Pillow](https://pillow.readthedocs.io/en/stable/)
 Pillow is the friendly PIL fork by Alex Clark and Contributors. PIL is the Python Imaging Library by Fredrik Lundh and Contributors.
 
-6. [PyQt5](https://pypi.org/project/PyQt5/)
+5. [PyQt5](https://pypi.org/project/PyQt5/)
 PyQt is a Python binding of the cross-platform GUI toolkit Qt, implemented as a Python plug-in.
 
-7. [requests](https://pypi.org/project/requests/)
+6. [requests](https://pypi.org/project/requests/)
 The requests module allows you to send HTTP requests using Python. The HTTP request returns a Response Object with all the response data (content, encoding, status, etc).
 
 ## Installation
@@ -61,7 +58,7 @@ conda activate py38
 
 We need to install the above mentioned libraries in order to run our program:
 ```sh
-pip install PyQt5 torch torchvision tensorflow
+pip install PyQt5 torch torchvision
 ```
 
 Check if the above programs have been installed:
