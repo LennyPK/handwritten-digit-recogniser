@@ -7,13 +7,10 @@ from torch.autograd import Variable
 from torchvision import datasets, transforms
 import torch.nn.functional as F
 import time
-import tensorflow as tf
 import numpy
 import random
 from PIL import Image, ImageOps
 import canvas_file
-
-# from __future__ import print_function
 
 # import matplotlib
 # import matplotlib.pyplot as plt
