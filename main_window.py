@@ -173,9 +173,11 @@ class Main_Window(QMainWindow):
         quit_action.triggered.connect(qApp.quit)
 
         open_analyser_action = QAction('Open Analyser', self)
+        open_analyser_action.setShortcut('Ctrl+2')
         open_analyser_action.triggered.connect(self.start_Module_UI)
 
         view_test_action = QAction('View Testing Images', self)
+        view_test_action.setShortcut('Ctrl+3')
         view_test_action.triggered.connect(self.start_Image_UI)
 
         menu_bar = self.menuBar()
