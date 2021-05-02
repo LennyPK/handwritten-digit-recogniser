@@ -9,7 +9,6 @@ from matplotlib.backends.backend_qt5agg import FigureCanvas
 import numpy as np
 import matplotlib.pyplot as plt
 from ReLu_trainer import *
-import pandas as pd
 
 '''Home_UI is the window that shows up when we run the code'''
 class Home_UI(QWidget):
@@ -65,17 +64,12 @@ class Model_UI(QWidget):
         clear_button.clicked.connect(self.label.clear_canvas)
         clear_button.clicked.connect(self.exit_plot)
 
-        # random_button = QPushButton(" &Random")
-
         recognise_button = QPushButton(" &Recognise")
         recognise_button.clicked.connect(self.save_image)
-        recognise_button.clicked.connect(self.plot)
-
 
         button_box = QVBoxLayout()
         button_box.addWidget(recognise_button)
         button_box.addWidget(clear_button)
-        # button_box.addWidget(random_button)
 
         group_box.setLayout(button_box)
 
@@ -101,7 +95,7 @@ class Model_UI(QWidget):
     '''when recognise btn pressed, save image first'''
     def save_image(self):
         self.label.save_canvas()
-        make_predictions()     
+        self.plot()
         
 
 '''Image_UI is the window to display the test images'''
@@ -167,7 +161,7 @@ class Main_Window(QMainWindow):
         super(Main_Window,self).__init__()
         self.train_win = None
 
-        self.setWindowIcon(QIcon('logo.png'))
+        self.setWindowIcon(QIcon('scripts/logo.png'))
 
         grid = QGridLayout()
         self.setLayout(grid)

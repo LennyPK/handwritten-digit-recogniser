@@ -18,6 +18,8 @@ class Train_Model_Window(QWidget):
     def init_UI(self):
 
         self.setWindowTitle('Model Training')
+        self.setWindowIcon(QIcon('scripts/logo.png'))
+
         self.show()
         
         self.message = QLabel("Select a Model to start training")

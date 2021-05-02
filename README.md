@@ -5,7 +5,6 @@ This is a program which lets the user input a handwritten digit and the AI model
 <details open="open">
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href="#description">Description</a>
     <li><a href="#installation">Installation</a></li>
     <li><a href="#how-to">How To</a></li>
     <li><a href="#credits">Credits</a></li>
@@ -13,9 +12,6 @@ This is a program which lets the user input a handwritten digit and the AI model
     <li><a href="#version">Version</a></li>
   </ol>
 </details>
-
-## Description
-<!-- What your application does, Why you used the technologies you used, Some of the challenges you faced and features you hope to implement in the future. -->
 
 ## Installation
 
