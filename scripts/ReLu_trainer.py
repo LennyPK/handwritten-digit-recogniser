@@ -48,7 +48,6 @@ test_loader = data.DataLoader(dataset=test_dataset,
                                         batch_size=batch_size,
                                         shuffle=False)
 
-
 class Net(nn.Module):
 
     def __init__(self):

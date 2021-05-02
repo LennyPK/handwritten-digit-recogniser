@@ -73,9 +73,23 @@ Cynthia Kwok - Made the GUI and Interface <br />
 Pulasthi Lenaduwa - Integrated the AI Models into the GUI
 
 ## Acknowledgments
-<!-- add all the supporting sites we used -->
+We would like to acknowledge the referenced sites and authors as they have helped with various problems in our code as GUI freezing and canvas creation
+brAIn would like to thank COMPSYS 302 teaching team for providing support and guidelines in developing this project, and for providing the AI Model we have implemented in our application as “ReLu Trainer”. 
 
 ## Versions
+Version 88 - made a script folder <br />
+Version 87 - Added plotting function … <br />
+Version 86 - references <br />
+Version 85 - added references to code <br />
+Version 84 - shortcuts added <br />
+Version 83 - . <br />
+Version 82 - added requirements.txt <br />
+Version 81 - brushing up final details … <br />
+Version 80 - added table of contents to readme <br />
+Version 79 - cleaned up files again <br />
+Version 78 - disabling model buttons <br />
+Version 77 - added a functioning accuracy viewer <br />
+Version 76 - readme file completed … <br />
 Version 75 - . <br />
 Version 74 - stylised readme <br />
 Version 73 - . <br />
