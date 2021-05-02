@@ -14,9 +14,6 @@ import random
 from PIL import Image, ImageOps
 import canvas_file
 
-# import matplotlib
-# import matplotlib.pyplot as plt
-
 global First
 global Last
 global last_epoch
@@ -34,22 +31,22 @@ print(f'Training MNIST Model on {device}\n{"=" * 44}')
 
 # MNIST Dataset
 train_dataset = datasets.MNIST(root='mnist_data/',
-                               train=True,
-                               transform=transforms.ToTensor(),
-                               download=True)
+                            train=True,
+                            transform=transforms.ToTensor(),
+                            download=True)
 
 test_dataset = datasets.MNIST(root='mnist_data/',
-                              train=False,
-                              transform=transforms.ToTensor())
+                            train=False,
+                            transform=transforms.ToTensor())
 
 # Data Loader (Input Pipeline)
 train_loader = data.DataLoader(dataset=train_dataset,
-                                           batch_size=batch_size,
-                                           shuffle=True)
+                                        batch_size=batch_size,
+                                        shuffle=True)
 
 test_loader = data.DataLoader(dataset=test_dataset,
-                                          batch_size=batch_size,
-                                          shuffle=False)
+                                        batch_size=batch_size,
+                                        shuffle=False)
 
 
 class Net(nn.Module):
@@ -91,7 +88,6 @@ def train(epoch):
         '''arbitrary if statement, just making sure the functions runs'''
         if batch_idx:
             train_progress(batch_idx * len(data), epoch)
-            # display_percentage()
 
         if batch_idx % 10 == 0:
             print('Train Epoch: {} | Batch Status: {}/{} ({:.0f}%) | Loss: {:.6f}'.format(
