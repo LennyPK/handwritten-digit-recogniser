@@ -114,7 +114,7 @@ class Image_UI(QWidget):
         group_box = QGroupBox('Images')
 
         self.image_label1 = QLabel()
-        self.test_image = QPixmap('MNIST_img.png')
+        self.test_image = QPixmap('scripts/MNIST_img.png')
         self.image_label1.setPixmap(self.test_image)
 
         self.image_label2 = QLabel()
