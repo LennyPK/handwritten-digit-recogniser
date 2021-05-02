@@ -1,3 +1,8 @@
+'''
+code for making a drawing canvas was acquired from
+M. Fitzpatrick, "QPainter and Bitmap Graphics", LearnPyQt, June 05, 2019. Accessed on April 18, 2021. [Online]. Availble:
+https://www.mfitzp.com/tutorials/bitmap-graphics/?fbclid=IwAR3w0CX82yuamOM0ClwuRVNMi2AH8ZCg1dHFTNXkO53KQ1_Uw-93EG2YvZ4
+'''
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
@@ -45,7 +50,7 @@ class Canvas_Model(QLabel):
         self.last_y = None
         # self.painter.end()
         '''uncomment if you do not want application to crash'''
-        '''but in this case the Analyser needs to be refreshed'''
+        '''but in this case the Analyser needs to be refreshed by navigating to home'''
         
     def paintEvent(self, e):
         painter = QPainter(self)

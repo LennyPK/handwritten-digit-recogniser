@@ -1,3 +1,5 @@
+'''code for AI model acquired from https://colab.research.google.com/drive/1EGMH2qYQydshkOCXpciKhI2NXNJDfcyQ?usp=sharing Lab 5 COMPSYS 302, University of Auckland'''
+
 from __future__ import print_function
 import sys
 import torch
