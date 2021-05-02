@@ -1,3 +1,8 @@
+'''
+M. Fitzpatrick, "Multithreading PyQt applications with QThreadPool", LearnPyQt, April 15, 2017. Accessed on April 18, 2021. [Online]. Availble:
+https://www.mfitzp.com/tutorials/multithreading-pyqt-applications-qthreadpool/
+'''
+
 from PyQt5.QtCore import *
 from ReLu_trainer import *
 
