@@ -6,7 +6,6 @@ This is a program which lets the user input a handwritten digit and the AI model
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#description">Description</a>
-    <li><a href="#prerequisites">Prerequisites</a></li>
     <li><a href="#installation">Installation</a></li>
     <li><a href="#how-to">How To</a></li>
     <li><a href="#credits">Credits</a></li>
@@ -17,26 +16,6 @@ This is a program which lets the user input a handwritten digit and the AI model
 
 ## Description
 <!-- What your application does, Why you used the technologies you used, Some of the challenges you faced and features you hope to implement in the future. -->
-
-## Prerequisites
-
-1. [torch](https://pytorch.org/)          
-PyTorch is an open source machine learning library based on the Torch library, used for applications such as computer vision and natural language processing, primarily developed by Facebook's AI Research lab (FAIR).
-
-2. [torchvision](https://pytorch.org/vision/stable/index.html)
-This library is part of the PyTorch project. PyTorch is an open source machine learning framework. The torchvision package consists of popular datasets, model architectures, and common image transformations for computer vision.
-
-3. [NumPy](https://numpy.org/)
-NumPy is a Python library used for working with arrays.
-
-4. [Pillow](https://pillow.readthedocs.io/en/stable/)
-Pillow is the friendly PIL fork by Alex Clark and Contributors. PIL is the Python Imaging Library by Fredrik Lundh and Contributors.
-
-5. [PyQt5](https://pypi.org/project/PyQt5/)
-PyQt is a Python binding of the cross-platform GUI toolkit Qt, implemented as a Python plug-in.
-
-6. [requests](https://pypi.org/project/requests/)
-The requests module allows you to send HTTP requests using Python. The HTTP request returns a Response Object with all the response data (content, encoding, status, etc).
 
 ## Installation
 
