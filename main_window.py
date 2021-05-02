@@ -4,6 +4,12 @@ from PyQt5.QtGui import *
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt, QTimer
 from canvas_file import *
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_qt5agg import FigureCanvas
+import numpy as np
+import matplotlib.pyplot as plt
+from ReLu_trainer import *
+import pandas as pd
 
 '''Home_UI is the window that shows up when we run the code'''
 class Home_UI(QWidget):
@@ -57,11 +63,13 @@ class Model_UI(QWidget):
         
         clear_button = QPushButton(" &Clear")
         clear_button.clicked.connect(self.label.clear_canvas)
+        clear_button.clicked.connect(self.exit_plot)
 
         # random_button = QPushButton(" &Random")
 
         recognise_button = QPushButton(" &Recognise")
         recognise_button.clicked.connect(self.save_image)
+        recognise_button.clicked.connect(self.plot)
 
 
         button_box = QVBoxLayout()
@@ -79,10 +87,22 @@ class Model_UI(QWidget):
 
         return group_box   
 
+    def plot(self):
+        data = make_predictions()
+        x = [0,1,2,3,4,5,6,7,8,9]
+        plt.xticks(np.arange(min(x), max(x)+1, 1.0))
+        plt.bar(x,data)
+        plt.yticks([])
+        plt.show()
+
+    def exit_plot(self):
+        plt.close()
+
     '''when recognise btn pressed, save image first'''
     def save_image(self):
         self.label.save_canvas()
         make_predictions()     
+        
 
 '''Image_UI is the window to display the test images'''
 class Image_UI(QWidget):
