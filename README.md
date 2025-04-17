@@ -1,17 +1,81 @@
-# Handwritten Digit Recognition
-This is a program which lets the user input a handwritten digit and the AI model will predict what the digit is depending on the accuracy of the chosen model.
+# Handwritten Digit Recogniser - COMPSYS 302
 
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
+This project implements a neural network-based handwritten digit recognition system using PyTorch and PyQt5. The system allows users to draw digits on a canvas and uses a trained neural network to predict the digit. This project was developed as part of the COMPSYS 302 course.
+
+## TABLE OF CONTENTS
+<ol>
+	<li><a href="#project-structure">Project Structure</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#technical-implementation">Technical Implementation</a></li>
+    <li><a href="#requirements">Requirements</a></li>
+    <li><a href="#development-tools">Development Tools</a></li>
+    <li><a href="#project-resources">Project Resources</a></li>
     <li><a href="#installation">Installation</a></li>
     <li><a href="#how-to">How To</a></li>
     <li><a href="#credits">Credits</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
-    <li><a href="#version">Version</a></li>
-  </ol>
-</details>
+    <li><a href="#versions">Versions</a></li>
+</ol>
+
+## Project Structure
+
+The project consists of several key components:
+
+- `scripts/`
+  - `ReLu_trainer.py` - Neural network implementation and training logic
+  - `main_window.py` - Main GUI application and window management
+  - `train_gui.py` - Training interface implementation
+  - `canvas_file.py` - Canvas drawing functionality
+  - `worker_thread.py` - Background thread handling
+- `mnist_data/` - MNIST dataset storage
+- `requirements.txt` - Python dependencies
+
+## Features
+
+- Interactive drawing canvas for digit input
+- Real-time digit recognition
+- Neural network training interface
+- Progress visualization during training
+- Model accuracy tracking
+- Support for both CPU and GPU training
+- MNIST dataset integration
+- Save and load functionality for drawn digits
+
+## Technical Implementation
+
+- PyTorch-based neural network
+- ReLU activation functions
+- Convolutional Neural Network (CNN) architecture
+- PyQt5-based graphical user interface
+- Multi-threaded training process
+- MNIST dataset preprocessing
+- Real-time prediction system
+
+## Requirements
+
+The project requires the following Python packages (specified in requirements.txt):
+- PyTorch (1.8.1)
+- PyQt5 (5.15.4)
+- NumPy (1.20.2)
+- Matplotlib (3.4.1)
+- Pillow (8.2.0)
+- torchvision (0.9.1)
+
+## Development Tools
+
+- Python 3.x
+- PyTorch for neural network implementation
+- PyQt5 for GUI development
+- Matplotlib for visualization
+- MNIST dataset for training
+
+## Project Resources
+
+The project includes:
+- Pre-trained model weights
+- MNIST dataset integration
+- GUI interface for easy interaction
+- Training progress visualization
 
 ## Installation
 
@@ -74,7 +138,7 @@ Pulasthi Lenaduwa - Integrated the AI Models into the GUI
 
 ## Acknowledgments
 We would like to acknowledge the referenced sites and authors as they have helped with various problems in our code as GUI freezing and canvas creation
-brAIn would like to thank COMPSYS 302 teaching team for providing support and guidelines in developing this project, and for providing the AI Model we have implemented in our application as “ReLu Trainer”. 
+brAIn would like to thank COMPSYS 302 teaching team for providing support and guidelines in developing this project, and for providing the AI Model we have implemented in our application as "ReLu Trainer". 
 
 ## Versions
 Version 88 - made a script folder <br />
